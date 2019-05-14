@@ -1,0 +1,14 @@
+<h1>Proprietors#show</h1>
+<p id="notice"><%= notice %></p>
+<p>
+  <b>title:</b>
+  <%= current_user.proprietor.name %>
+</p>
+
+<%= link_to 'Edit', edit_proprietor_path(current_user.proprietor.id) %>
+
+<%= link_to 'delete', proprietor_path(current_user.proprietor.id), method: :delete %>
+<br>
+<br>
+<br>
+<%= link_to 'Landing page', root_path %>

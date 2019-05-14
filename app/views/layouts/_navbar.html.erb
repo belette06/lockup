@@ -1,0 +1,31 @@
+
+<nav class="navbar navbar-default navbar-fixed-top animated fadeInDown" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span>Show Menu</span>
+      </button>
+      <a class="navbar-brand" >HomeLockup</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse" id="CollapseMenu">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="about-nav"><a href="#"><i class="fa fa-fw fa-user-o" aria-hidden="true"></i> About</a></li>
+        <li><i class="fa fa-fw fa-code" aria-hidden="true"></i>
+          <% if user_signed_in? %>
+            Logged in as <strong><%= current_user.email %></strong>.
+            <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+          <% else %>
+            <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+            <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+          <%end %>
+        </li>
+        <li class="contact-nav"><a href="#"><i class="fa fa-fw fa-envelope-o" aria-hidden="true"></i> Contact</a></li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+</nav>

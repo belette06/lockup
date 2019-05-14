@@ -1,0 +1,16 @@
+<h1>Proprietors#index</h1>
+<p>Find me in app/views/proprietors/index.html.erb</p>
+
+<%@proprietors.each do |f| %>
+  <%=f.id %><br>
+  <%=f.name %><br>
+
+  <%=link_to 'edit', edit_proprietor_path(@proprietors) %><br>
+  <%=link_to "delete",  proprietor_path(@proprietors), method: :delete, class: 'btn', data: { confirm: 'Are you sure?' } %>
+  <hr>
+<% end %>
+
+<hr>
+<%= link_to 'Menu', root_path %><br>
+<%= link_to 'New', new_proprietor_path %>
+<hr>

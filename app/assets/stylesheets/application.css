@@ -13,3 +13,387 @@
  *= require_tree .
  *= require_self
  */
+
+html,
+body {
+
+}
+
+button {
+    outline: 0 !important;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 70px;
+
+}
+
+header {
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/791586/header.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+h2 {
+
+    display: inline-block;
+    font-size: 40px;
+    border-bottom: 2px solid white;
+    margin: 0;
+    padding-bottom: 5px;
+}
+
+h3 {
+
+    font-weight: 900;
+    font-size: 40px;
+    color: white;
+    margin: 20px auto;
+}
+
+h4 {
+
+    font-weight: 700;
+    font-size: 28px;
+    color: white;
+}
+
+section {
+    padding: 10vh 0;
+}
+
+h3 i {
+    margin-right: 20px;
+}
+
+.about {
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.about p {
+    margin: 20px auto;
+    font-weight: 300;
+    text-align: justify;
+    width: 580px;
+}
+
+.about-section {
+    background: #495ba7;
+    text-align: center;
+    box-shadow: inset 0 -15px 30px -15px #000;
+}
+
+.about-section button {
+    background: none;
+    border: 2px solid #FFF;
+    border-radius: 4px;
+    color: #FFF;
+    font-weight: 700;
+    height: 35px;
+    margin-top: 60px;
+    outline: none;
+}
+
+.about-section button i {
+    margin-right: 5px;
+}
+
+.about-section button:hover,
+.header-content button:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.btn-code {
+    background: #a7495b;
+    border: none;
+    color: #FFF;
+}
+
+.btn-proj {
+    background: #498aa7;
+    border: none;
+    color: #FFF;
+}
+
+.caption h4 {
+    font-weight: 700;
+}
+
+.contact {
+    background: #252525;
+
+    padding: 100px;
+    text-align: center;
+}
+
+.contact a {
+    color: #FFF;
+    font-size: 1.3em;
+    font-weight: 300;
+}
+
+.contact a:hover {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+}
+
+.contact h3 {
+    font-size: 2em;
+    font-weight: 400;
+    width: 250px;
+}
+
+.contact i {
+    color: #FFF;
+    font-size: 1.6em;
+    margin-right: 10px;
+}
+
+.contact p {
+    margin-left: 30%;
+    text-align: left;
+}
+
+.contact-content {
+    margin: 0 auto;
+    width: 280px;
+}
+
+.creator {
+    background: #111;
+    padding: 5px;
+    text-align: center;
+}
+
+.creator p {
+    color: #FFF;
+
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+}
+
+.desc-start {
+    margin: 20px 0;
+}
+
+.header-content {
+    color: #FFF;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.header-content a,
+.navbar-brand::first-letter {
+    color: #FFF;
+}
+
+.header-content button {
+    -moz-animation-delay: 1.75s;
+    -webkit-animation-delay: 1.75s;
+    animation-delay: 1.75s;
+    background: none;
+    border: 2px solid #FFF;
+    border-radius: 4px;
+    color: #FFF;
+    font-weight: 400;
+    height: 35px;
+    margin-top: 55px;
+    outline: none;
+    padding: 0 25px;
+}
+
+.navbar {
+    background-color: black;
+    border: none;
+    transition: background 0.8s;
+}
+
+.navbar-brand {
+    color: rgba(255, 255, 255, 0.8)!important;
+
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.navbar-default .navbar-nav li a {
+    color: rgba(255, 255, 255, 0.8);
+
+    font-size: 16px;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+.footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.navbar-default .navbar-nav li a:hover {
+    color: #FFF;
+    transition: color .3s;
+}
+
+.navbar-default .navbar-nav li a:focus {
+    color: #FFF;
+    transition: color .3s;
+}
+
+.navbar-toggle {
+    background: none!important;
+    color: #FFF;
+}
+
+.profilepic {
+    border: 20px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    margin: 65px auto;
+    width: 400px;
+}
+
+.project-tile {
+    padding: 2vh 5%;
+}
+
+.project-tile h4 {
+    color: #000;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.projectPills {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.projectPills span:nth-of-type(4) {
+    text-transform: none;
+}
+
+.projects {
+    box-shadow: inset 0 15px 30px -15px #000;
+    background: #a7495b;
+    text-align: center;
+}
+
+.social-icons {
+    font-size: 30px;
+    margin-top: 10px;
+}
+
+.social-icons i {
+    margin: 0 5px;
+}
+
+.social-icons i:hover {
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.tagline {
+    text-align: center!important;
+}
+
+.technologies,
+.techsquares {
+    padding: 0;
+}
+
+.thumbnail {
+    background: #FFF;
+    border: none;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+.f3 {
+    -webkit-animation-duration: 0.9s;
+    animation-duration: 0.9s;
+}
+
+.s3 {
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s;
+}
+
+@media (max-width: 1200px) {
+    .about-section div img {
+        width: 40%;
+    }
+    .profilepic {
+        margin: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    h1 {
+        font-size: 36px;
+        font-weight: 900;
+
+    }
+    h2 {
+        font-size: 18px;
+        font-weight: 300;
+
+    }
+    .about-section div img {
+        width: 50%;
+    }
+    .social-icons i {
+        margin: 0;
+    }
+}
+
+@media(max-width: 605px) {
+    .about p {
+        width: 354px;
+    }
+    .about-section div img {
+        width: 60%;
+    }
+    section p {
+        font-size: 16px;
+    }
+}
+
+@media(max-width: 525px) {
+    h3 {
+        font-size: 32px;
+    }
+    .about-section div img {
+        width: 70%;
+    }
+    .about {
+        padding: 0;
+    }
+    .contact {
+        padding: 50px 0;
+    }
+}
+
+@media (max-width: 320px) {
+    .about p {
+        width: 280px;
+    }
+}
+
+
+/* Fix Landscape on Mobile */
+
+@media screen and (orientation: landscape) and (max-height: 375px) {
+    .header-content button {
+        display: none;
+    }
+    .thumbnail {
+        width: 55%;
+        margin: 0 auto;
+    }
+}

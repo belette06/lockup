@@ -1,0 +1,71 @@
+
+<header>
+  <!-- HEADER CONTENT STARTS HERE -->
+  <div class="header-content" id="start-navbar-dark">
+
+    <div class="container-fluid">
+      <div class="row  about-section">
+        <!-- BEGIN SECTIONS -->
+        <div class="col-md-12 col-lg-6">
+          <% if user_signed_in? %>
+            <%if user_session %>
+              <div  class="profilepic">
+                <% if @proprietor.present?%>
+                  <%= link_to 'Espace le proprietaire', proprietor_path(@proprietor.id) %><br>
+                  <%= link_to 'ajouter une Maison', new_home_path%><br>
+                  <% if @homes.present? %>
+                    <%= link_to 'Espace Maison', homes_path%><br>
+                  <%end %>
+                <%else %>
+                  <%= link_to 'Cree le proprietaire', new_proprietor_path  %>
+                <%end %>
+                <!-- PROPRIETOR-->
+              </div>
+              </div>
+              <% if @proprietor.present?%>
+                <div class="col-md-12 col-lg-6 about">
+                  <h3 id="start-about-animation"><i class="fa fa-handshake-o" aria-hidden="true"></i><%= current_user.email %></h3>
+                  <p class="tagline">name: <%=@proprietor.name%></p>
+                    <!--<p class="desc-start"><br>-->
+                  <p> <% if @homes.present? %>
+                    <ul><% @homes.each do |f| %>
+                        <li>  <%= f.name %></li><br>
+                        <li> <%= f.description %></li><br>
+                        <li>  <%= link_to'ajouter une reservation', new_home_appointment_path(f.id) %></li>
+                        <li>  <%= link_to'voir les reservations',   home_appointments_path(f.id) %></li>
+                        <hr>
+                      <% end %>
+                    </ul>
+                  <%end %>
+              <%end %>
+            <%end %>
+          <%end %>
+          </div>
+          </div>
+
+    </div>
+    <button class="animated swing about-nav">About Me</button>
+  </div>
+</header>
+
+
+<section class="row contact">
+  <div class="col-sm-12 col-md-6">
+    <div class="contact-content">
+      <h3>Let's Get In Touch!</h3>
+      <p><a href="https://www.github.com/Wheatability"><i class="fa fa-github"></i>GitHub</a></p>
+      <p><a href="https://www.linkedin.com/in/tpurvines"><i class="fa fa-linkedin"></i>Linked In</a></p>
+      <p><a href="https://codepen.io/Wheatability/"><i class="fa fa-codepen"></i>Codepen</a></p>
+      <p><a href="mailto:tylerpurvines@gmail.com"><i class="fa fa-envelope"></i>Email</a></p>
+    </div>
+  </div>
+  <div class="col-md-6">
+  </div>
+</section>
+<section class="row creator">
+  <div class="col-sm-12">
+    <p>Page <i class="fa fa-code"></i> with <i class="fa fa-heart"></i> by belette06</p>
+  </div>
+</section>
+<!-- END SECTIONS -->
+</div>
