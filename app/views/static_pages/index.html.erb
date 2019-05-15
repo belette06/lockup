@@ -30,8 +30,8 @@
                   <p> <% if @homes.present? %>
                     <ul><% @homes.each do |f| %>
                         <li>  <%= f.name %></li><br>
-                        <li>  <%= link_to'ajouter une reservation', new_appointment_path(f.id) %></li>
-                        <li>  <%= link_to'voir les reservations',   appointments_path(f.id) %></li>
+                        <li>  <%= link_to'ajouter une reservation', new_home_appointment_path(f.id) %></li>
+                        <li>  <%= link_to'voir les reservations',   home_appointments_path(f.id) %></li>
                         <hr>
                       <% end %>
                     </ul>

@@ -1,3 +1,4 @@
+require 'pry'
 class AppointmentsController < ApplicationController
 
   def index
@@ -14,7 +15,8 @@ class AppointmentsController < ApplicationController
   end
 
   def new
-    @appointment = Appointment.new
+    @home = Home.find(params[:home_id])
+    @appointment = @home.appointments.build
     @appointment.tenant = Tenant.new
 
   end
@@ -25,14 +27,16 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @appointment = Appointment.new
+    @home = Home.find(params[:home_id])
+    @appointment = @home.appointments.build
     @appointment.tenant = Tenant.new
+    if @appointment.tenant.save
+      @appointment.tenant_id = @appointment.tenant.id
+    end
 
-    @appointment.tenant_id = @appointment.tenant.id
-    @appointment.tenant.save
     respond_to do |format|
       if @appointment.save
-        format.html { redirect_to @appointment, notice: 'Product was successfully created.' }
+        format.html { redirect_to [@home, @appointment], notice: 'Product was successfully created.' }
         format.json { render json: @appointment, status: :created, location: @appointment }
       else
         format.html { render action: "new" }
@@ -67,11 +71,9 @@ class AppointmentsController < ApplicationController
   end
 private
 
-
   def appointment_params
-  params.require(:appointment).permit(:home_id).merge(tenant_id: tenant.id)
-end
-
+    params.require(:appointment).permit(:tenant_id, :home_id).merge(tenant_id: tenant.id )
+  end
 
 end
 

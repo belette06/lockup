@@ -1,5 +1,6 @@
-<%= form_with model:@appointment, locale: true do |f| %>
-  <%= f.text_field @appointment.tenant.name%>
+<%= form_with model: [:home,@appointment] do |f| %>
+
+  <%= f.text_field @appointment.tenant.name.to_s %>
 
 <div class="field">
   <% f.fields_for :tenant do |form|%>

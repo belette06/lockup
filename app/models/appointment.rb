@@ -23,6 +23,5 @@ class Appointment < ApplicationRecord
 
   belongs_to :home
   belongs_to :tenant
-  accepts_nested_attributes_for :tenant
 
 end
