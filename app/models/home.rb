@@ -19,4 +19,8 @@
 
 class Home < ApplicationRecord
   belongs_to :proprietor
+
+  has_many :appointments
+  has_many :tenants, through: :appointments
+
 end

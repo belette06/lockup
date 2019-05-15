@@ -1,6 +1,9 @@
 class StaticPagesController < ApplicationController
   def index
-  @proprietor= current_user.proprietor
+    if user_signed_in?
+      @proprietor= current_user.proprietor
+      @homes= @proprietor.homes
+    end
   end
 
 end

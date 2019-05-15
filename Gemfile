@@ -15,7 +15,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
-gem 'simplecov', require: false, group: :test
+gem 'pry', '~> 0.12.2'
 
 group :development, :test do
   gem 'dotenv-rails', require: 'dotenv/rails-now'
@@ -42,6 +42,7 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  gem 'simplecov', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

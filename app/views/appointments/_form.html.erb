@@ -1,0 +1,11 @@
+<%= form_with model:@appointment, locale: true do |f| %>
+  <%= f.text_field @appointment.tenant.name%>
+
+<div class="field">
+  <% f.fields_for :tenant do |form|%>
+  <%= form.text_field :name %><br/>
+    <%end %>
+  <%=f.submit %>
+</div>
+
+<% end %>
