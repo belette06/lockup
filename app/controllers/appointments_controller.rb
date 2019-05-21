@@ -16,9 +16,8 @@ class AppointmentsController < ApplicationController
 
   def new
     @home = Home.find(params[:home_id])
-    @appointment = @home.appointments.build
-    @appointment.tenant = Tenant.new
-
+    @appointment = Appointment.new
+    @tenant = Tenant.new
   end
 
 
@@ -27,11 +26,16 @@ class AppointmentsController < ApplicationController
   end
 
   def create
+
     @home = Home.find(params[:home_id])
-    @appointment = @home.appointments.build
-    @appointment.tenant = Tenant.new
-    if @appointment.tenant.save
-      @appointment.tenant_id = @appointment.tenant.id
+    @appointment = Appointment.new
+    @tenant = Tenant.new(tenant_params)
+    @appointment.home_id = @home.id
+
+
+    if @tenant.save
+      @appointment.tenant_id = @tenant.id
+
     end
 
     respond_to do |format|
@@ -71,10 +75,16 @@ class AppointmentsController < ApplicationController
   end
 private
 
-  def appointment_params
-    params.require(:appointment).permit(:tenant_id, :home_id).merge(tenant_id: tenant.id )
+  def set_home
+    @home = Home.find(params[:home_id])
   end
 
-end
+  def appointment_params
+    params.require(:appointment).permit(:tenant_id, :home_id)
+  end
 
+  def tenant_params
+    params.require(:tenant).permit(:name)
+  end
+end
 

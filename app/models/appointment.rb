@@ -21,7 +21,21 @@
 
 class Appointment < ApplicationRecord
 
+
+
   belongs_to :home
   belongs_to :tenant
+
+  accepts_nested_attributes_for :tenant
+
+  ActiveRecord::Base.send(:include, ActiveModel::ForbiddenAttributesProtection)
+
+  #def tenant_name
+   # @tenant.name = tenant_name
+  #end
+
+  #def create_tenant
+   # Tenant.create(params[:tenant])
+  #end
 
 end

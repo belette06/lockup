@@ -1,0 +1,10 @@
+<h1>Tenants <% #link_to "+ New", new_tenant_path %></h1>
+<% if @tenants.any? %>
+  <div >
+      <h3>Name</h3>
+    </div>
+
+<% else %>
+  <p>No tenant yet.</p>
+<% end %>
+<%= render partial: "tenant_index", collection: @tenants, as: :tenant %>

@@ -1,12 +1,11 @@
-<%= form_with model: [:home,@appointment] do |f| %>
+require 'pry'
+<%= form_for [:home,@appointment] do |f| %>
 
-  <%= f.text_field @appointment.tenant.name.to_s %>
 
-<div class="field">
-  <% f.fields_for :tenant do |form|%>
-  <%= form.text_field :name %><br/>
+
+  <%= fields_for :tenant, @tenant do |form| %>
+    <%= form.text_field :name %><br/>
+
     <%end %>
-  <%=f.submit %>
-</div>
-
-<% end %>
+  <%= f.submit %>
+<%end %>

@@ -9,7 +9,14 @@
 #
 
 class Tenant < ApplicationRecord
+#  attr_accessible :name
+
 
   has_many :appointments ,dependent: :destroy
   has_many :homes, through: :appointments
+
+  accepts_nested_attributes_for :homes
+  accepts_nested_attributes_for :appointments
+
+  ActiveRecord::Base.send(:include, ActiveModel::ForbiddenAttributesProtection)
 end

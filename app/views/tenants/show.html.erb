@@ -1,0 +1,4 @@
+<h1>tenant</h1>
+<%= render @tenant %>
+<h1>Appointments <% link_to "+ New", new_tenant_appointment_path(@tenant) %></h1>
+<% render @appointments, template: "appointments/appointment" %>
