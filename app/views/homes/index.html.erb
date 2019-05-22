@@ -1,7 +1,7 @@
 
 <p id="notice"><%= notice %></p>
 
-<h1>HOMES #show</h1>
+INDEX
 
 <table>
   <thead>
@@ -15,22 +15,15 @@
   <% @homes.each do |home| %>
     <tr>
       <td>__Name__</td>
-      <td>__Description__</td>
-      <td>__Online__</td>
+
     </tr>
     <tr>
       <td>|<%= home.name %></td>|
-      <td>|<%= home.description %></td>|
-      <td>|<%if  home.online == true %>
-          <%=  "Home is Online"  %>
-        <%else %>
-          <%=   "Home is Offline" %>
-        <%end %></td>
-      <td>|
+
       <td>
         <%= link_to 'Show', home %><br/>
-        <%= link_to 'Edit',  edit_home_tenant_home_path(home.id) %><br/>
-        <%= link_to 'Destroy',  home_tenant_home_path(home.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'Edit',  edit_home_path(home.id) %><br/>
+        <%= link_to 'Destroy',  home_path(home.id), method: :delete, data: { confirm: 'Are you sure?' } %>
       </td>
     </tr>
 
@@ -40,8 +33,6 @@
 
 <br>
 
-<%= link_to 'new Home', new_home_tenant_home_path %><br/>
+<%= link_to 'new Home', new_home_path %><br/>
 <%= link_to 'Landing page', root_path %>
 
-
-%>

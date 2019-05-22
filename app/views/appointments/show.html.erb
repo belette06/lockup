@@ -1,2 +1,27 @@
 <h1>Appointments#show</h1>
 <p>Find me in app/views/appointments/show.html.erb</p>
+<table>
+  <tr>
+    <td>|Appointment</td>
+    <td>|Home</td>
+    <td>|tenant</td>
+  </tr>
+  <tr>
+   <td><%=@appointment.id%></td>
+   <td>|<%=@appointment.home_id%> </td>
+   <td>|<%=@appointment.tenant_id%> </td>
+  </tr>
+  <tr>
+    <td>
+
+    </td>
+    <td>|<%=@appointment.home.name%></td>
+    <td>|<%=@appointment.tenant.name%></td>
+  </tr>
+</table>
+
+
+<%= link_to "landing Pages", root_path %>
+
+
+

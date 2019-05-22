@@ -1,8 +1,9 @@
 require 'pry'
 class AppointmentsController < ApplicationController
+before_action :set_home, only: %i[new create edit update destroy index]
 
   def index
-    @appointments = Appointment.all
+    @appointments = @home.appointments.all
 
     respond_to do |format|
       format.html { render action: "index" }
@@ -15,7 +16,6 @@ class AppointmentsController < ApplicationController
   end
 
   def new
-    @home = Home.find(params[:home_id])
     @appointment = Appointment.new
     @tenant = Tenant.new
   end
@@ -27,15 +27,11 @@ class AppointmentsController < ApplicationController
 
   def create
 
-    @home = Home.find(params[:home_id])
     @appointment = Appointment.new
     @tenant = Tenant.new(tenant_params)
     @appointment.home_id = @home.id
-
-
     if @tenant.save
       @appointment.tenant_id = @tenant.id
-
     end
 
     respond_to do |format|
@@ -77,10 +73,6 @@ private
 
   def set_home
     @home = Home.find(params[:home_id])
-  end
-
-  def appointment_params
-    params.require(:appointment).permit(:tenant_id, :home_id)
   end
 
   def tenant_params
