@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -26,9 +28,8 @@ class User < ApplicationRecord
   has_one :proprietor
   accepts_nested_attributes_for :proprietor
 
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, :uniqueness => true, format: { with: VALID_EMAIL_REGEX }
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
+  validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
 
- validates_length_of :password, :in => 6..20, :on => :create
-
+  validates :password, length: { in: 6..20, on: :create }
 end

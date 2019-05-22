@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'pry'
 class AppointmentsController < ApplicationController
-before_action :set_home, only: %i[new create edit update destroy index]
+  before_action :set_home, only: %i[new create edit update destroy index]
 
   def index
     @appointments = @home.appointments.all
@@ -20,13 +22,11 @@ before_action :set_home, only: %i[new create edit update destroy index]
     @tenant = Tenant.new
   end
 
-
   def edit
     @appointment = Appointment.find(params[:id])
   end
 
   def create
-
     @appointment = Appointment.new
     @tenant = Tenant.new(tenant_params)
     @appointment.home_id = @home.id
@@ -45,12 +45,11 @@ before_action :set_home, only: %i[new create edit update destroy index]
     end
   end
 
-
   def update
     @appointment = Appointment.find(params[:id])
 
     respond_to do |format|
-      if @appointment.update_attributes(params[:tenant])
+      if @appointment.update(params[:tenant])
         format.html { redirect_to @appointment, notice: 'Product was successfully updated.' }
         format.json { head :no_content }
       else
@@ -69,7 +68,8 @@ before_action :set_home, only: %i[new create edit update destroy index]
       format.json { head :no_content }
     end
   end
-private
+
+  private
 
   def set_home
     @home = Home.find(params[:home_id])
@@ -79,4 +79,3 @@ private
     params.require(:tenant).permit(:name)
   end
 end
-

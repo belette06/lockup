@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HomesController < ApplicationController
   before_action :set_homes, only: %i[show update edit destroy]
 

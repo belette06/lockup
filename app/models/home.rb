@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: homes
@@ -22,5 +24,4 @@ class Home < ApplicationRecord
 
   has_many :appointments
   has_many :tenants, through: :appointments
-
 end

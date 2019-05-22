@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: appointments
@@ -20,9 +22,6 @@
 #
 
 class Appointment < ApplicationRecord
-
-
-
   belongs_to :home
   belongs_to :tenant
 
@@ -30,12 +29,11 @@ class Appointment < ApplicationRecord
 
   ActiveRecord::Base.send(:include, ActiveModel::ForbiddenAttributesProtection)
 
-  #def tenant_name
-   # @tenant.name = tenant_name
-  #end
+  # def tenant_name
+  # @tenant.name = tenant_name
+  # end
 
-  #def create_tenant
-   # Tenant.create(params[:tenant])
-  #end
-
+  # def create_tenant
+  # Tenant.create(params[:tenant])
+  # end
 end

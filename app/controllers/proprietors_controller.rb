@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProprietorsController < ApplicationController
   before_action :set_proprietor, only: %i[show edit update destroy]
   before_action :authenticate_user!
@@ -7,8 +9,8 @@ class ProprietorsController < ApplicationController
   end
 
   def new
-    #@proprietor = Proprietor.new
-     @proprietor = current_user.proprietor.build_user
+    # @proprietor = Proprietor.new
+    @proprietor = current_user.proprietor.build_user
   end
 
   def show

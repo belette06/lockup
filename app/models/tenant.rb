@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: tenants
@@ -9,10 +11,9 @@
 #
 
 class Tenant < ApplicationRecord
-#  attr_accessible :name
+  #  attr_accessible :name
 
-
-  has_many :appointments ,dependent: :destroy
+  has_many :appointments, dependent: :destroy
   has_many :homes, through: :appointments
 
   accepts_nested_attributes_for :homes
