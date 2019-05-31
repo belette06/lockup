@@ -29,6 +29,7 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new
     @tenant = Tenant.new(tenant_params)
+    #@appointment.kind = "appointments"
     @appointment.home_id = @home.id
     if @tenant.save
       @appointment.tenant_id = @tenant.id

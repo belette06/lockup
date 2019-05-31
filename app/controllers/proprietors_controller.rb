@@ -9,8 +9,8 @@ class ProprietorsController < ApplicationController
   end
 
   def new
-    # @proprietor = Proprietor.new
-    @proprietor = current_user.proprietor.build_user
+    @proprietor = Proprietor.new
+#    @proprietor = current_user.proprietor.build_user
   end
 
   def show

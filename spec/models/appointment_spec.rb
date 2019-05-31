@@ -1,14 +1,17 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: appointments
 #
-#  id         :bigint(8)        not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  home_id    :bigint(8)        not null
-#  tenant_id  :bigint(8)        not null
+#  id               :bigint(8)        not null, primary key
+#  ends_at          :datetime
+#  kind             :string
+#  starts_at        :datetime
+#  weekly_recurring :boolean
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  home_id          :bigint(8)        not null
+#  tenant_id        :bigint(8)        not null
 #
 # Indexes
 #

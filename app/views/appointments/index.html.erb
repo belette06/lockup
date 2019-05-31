@@ -19,11 +19,12 @@ Reservation <%= @home.name %>-<%=@home.id  %>
       <td>__Name__</td>
     </tr>
     <tr>
-      <td>|<%= f.tenant.name %></td>
+
+      <td><%= f.tenant.name %></td>
       <td>
-        <%= link_to 'Show', f %><br/>
-        <%= link_to 'Edit',  edit_home_appointment_path(f.id) %><br/>
-        <%= link_to 'Destroy',  home_appointment_path(f.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'Show', home_appointment_path(@home, f.id)%><br/>
+        <%= link_to 'Edit',  edit_home_appointment_path(@home,f.id) %><br/>
+        <%= link_to 'Destroy',  home_appointment_path(@home,f.id), method: :delete, data: { confirm: 'Are you sure?' } %>
       </td>
     </tr>
 

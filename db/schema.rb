@@ -18,6 +18,10 @@ ActiveRecord::Schema.define(version: 2019_05_14_221357) do
   create_table "appointments", force: :cascade do |t|
     t.bigint "home_id", null: false
     t.bigint "tenant_id", null: false
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.string "kind"
+    t.boolean "weekly_recurring"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["home_id"], name: "index_appointments_on_home_id"
