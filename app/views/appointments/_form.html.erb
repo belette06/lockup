@@ -1,15 +1,17 @@
-
-<%= form_for [:home,@appointment] do |f| %>
-  <%= f.fields_for :kind do |kind|  %>
-     <%= kind.datetime_field :starts_at  %><br/>
-     <%= kind.datetime_field :ends_at %><br/>
+<h3>opennings</h3>
+<%= form_for appointment do |f| %>
+  <%if @appointment.kind.nil?  %>
+  <%= render 'appointments/form' %>
+<%else %>
+<h3>appointment</h3>
+     <%= f.datetime :starts_at  %><br/>
+     <%= f.datetime :ends_at %><br/>
     <%= f.hidden_field :kind, :value => "appointments" %>
-     Recurrence <%=f.check_box :weekly_recurring%><br/>
+     Recurrence <%=f.check_box :weekly_recurring, default: false%><br/>
   Create for tenant
   <%= fields_for :tenant, @tenant do |form| %>
     <%= form.text_field :name %><br/>
-
-    <% end %>
+    <%end %>
+<%end %>
   <%= f.submit %>
 <% end %>
-<%end %>

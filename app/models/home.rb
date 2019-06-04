@@ -22,6 +22,11 @@
 class Home < ApplicationRecord
   belongs_to :proprietor
 
-  has_many :appointments
+  has_many :appointments, dependent: :destroy
   has_many :tenants, through: :appointments
+  accepts_nested_attributes_for :appointments
+  accepts_nested_attributes_for :tenants
+
+
+
 end

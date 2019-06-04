@@ -1,4 +1,4 @@
-
+require 'pry'
 <header>
   <!-- HEADER CONTENT STARTS HERE -->
   <div class="header-content" id="start-navbar-dark">
@@ -8,9 +8,13 @@
         <!-- BEGIN SECTIONS -->
         <div class="col-md-12 col-lg-6">
           <% if user_signed_in? %>
+            lllllllll
             <%if user_session %>
+              kkkkkkkkkk
               <div  class="profilepic">
+
                 <% if @proprietor.present?%>
+                  ffffffffff
                   <%= link_to 'Espace le proprietaire', proprietor_path(@proprietor.id) %><br>
                   <%= link_to 'ajouter une Maison', new_home_path%><br>
                   <% if @homes.present? %>

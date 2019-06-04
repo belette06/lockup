@@ -2,9 +2,14 @@
 
 class StaticPagesController < ApplicationController
   def index
+    if current_user.present?
     if @proprietor.nil?
       @proprietor = current_user.proprietor
-      @homes = @proprietor.homes
+      if @homes.nil?
+        @homes = @proprietor.homes
+        end
     end
-  end
+    end
+    end
+
 end

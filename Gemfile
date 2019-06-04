@@ -17,6 +17,9 @@ gem 'redis-rails'
 gem 'sass-rails', '~> 5'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
+gem 'simple_form'
+gem 'bootstrap-datepicker-rails'
+
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -29,6 +32,7 @@ group :development do
   gem 'annotate'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem "relaxed-rubocop"
+  gem 'rubocop-rails'
   gem 'rubocop', require: false
   gem 'rubocop-performance'
   gem 'rubocop-rspec'

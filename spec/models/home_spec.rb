@@ -22,5 +22,8 @@
 require 'rails_helper'
 
 RSpec.describe Home, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'create home' do
+    Home.create(name: "teste_name")
+  end
+
 end

@@ -5,7 +5,6 @@ class CreateHomes < ActiveRecord::Migration[6.0]
     create_table :homes do |t|
       t.string :name
       t.references :proprietor, null: false, foreign_key: true
-
       t.timestamps
     end
   end
