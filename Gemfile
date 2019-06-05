@@ -17,6 +17,7 @@ gem 'redis-rails'
 gem 'sass-rails', '~> 5'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
+gem "pundit"
 gem 'simple_form'
 gem 'bootstrap-datepicker-rails'
 

@@ -26,7 +26,7 @@ class Appointment < ApplicationRecord
 
 
 
-  TIME_STEP = 1.day
+  TIME_STEP = 1.daywe
 
   scope :openings, -> { where(kind: :opening) }
   scope :appointments, -> { where(kind: :appointment) }

@@ -18,8 +18,10 @@ class HomesController < ApplicationController
   def create
     @proprietor = current_user.proprietor
     @home = @proprietor.homes.build(params_homes)
-    @appointment = Appointment.new(params_appointment)
-    do_something_with_params
+    @appointment = @home.appointments.build(params :appointment)
+    params.require(:home).permit!
+
+
       if @home.save
       redirect_to @home, notice: 'Home create'
     else
@@ -42,17 +44,12 @@ class HomesController < ApplicationController
       redirect_to @home, notice: 'destroy..'
   end
 
-  def do_something_with_params
-    params.to_unsafe_h.slice(:params_homes, :params_appointment)
-  end
+  private
 
   def params_homes
     params.require(:home).permit(:name, :proprietor)
   end
 
-def params_appointment
-  params.require(:appointment).permit(:kind, :starts_at, :ends_at, :weekly_recurring)
-end
   def set_homes
     @home = Home.find(params[:id])
   end
