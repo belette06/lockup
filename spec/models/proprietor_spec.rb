@@ -22,5 +22,7 @@
 require 'rails_helper'
 
 RSpec.describe Proprietor, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'create home' do
+    Proprietor.create(name: "teste_name")
+  end
 end

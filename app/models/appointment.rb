@@ -5,33 +5,25 @@
 #
 #  id               :bigint(8)        not null, primary key
 #  ends_at          :datetime
-#  kind             :string
+#  kind             :string           not null
 #  starts_at        :datetime
 #  weekly_recurring :boolean
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  home_id          :bigint(8)        not null
-#
-# Indexes
-#
-#  index_appointments_on_home_id  (home_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (home_id => homes.id)
 #
 
 class Appointment < ApplicationRecord
-  belongs_to :home
+  has_one :home
 
 
-
-  TIME_STEP = 1.daywe
+  TIME_STEP = 1.day
 
   scope :openings, -> { where(kind: :opening) }
   scope :appointments, -> { where(kind: :appointment) }
   scope :filter_by_date, ->(beginning_date, end_date){ where(starts_at: beginning_date..end_date) }
   scope :weekly_events, -> { where(weekly_recurring: true) }
+
+
 
   class << self
     def availabilities(date = Time.zone.today)

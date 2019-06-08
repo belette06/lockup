@@ -19,7 +19,7 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
-    @tenant = Tenant.new
+    #@tenant = Tenant.new
   end
 
   def edit
@@ -28,7 +28,7 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.new
-    @tenant = Tenant.new(tenant_params)
+   # @tenant = Tenant.new(tenant_params)
     #@appointment.kind = "appointments"
     @appointment.home_id = @home.id
     if @tenant.save
@@ -37,7 +37,7 @@ class AppointmentsController < ApplicationController
 
     respond_to do |format|
       if @appointment.save
-        format.html { redirect_to [@home, @appointment], notice: 'Product was successfully created.' }
+        format.html { redirect_to @home, notice: 'Product was successfully created.' }
         format.json { render json: @appointment, status: :created, location: @appointment }
       else
         format.html { render action: "new" }

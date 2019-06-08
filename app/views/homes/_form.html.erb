@@ -1,11 +1,11 @@
 require 'pry'
-<%= simple_form_for @home, html: {class: 'horizontal_form'} do |f| %>
+<%= simple_form_for @home, html: {class: 'horizontal_form container'} do |f| %>
     <%= f.input :name %>
-  <%=f.simple_fields_for @appointment do |form|%>
-    <%=form.input :kind%>
+  <%=f.simple_fields_for @home.appointment do |form|%>
+    <%=form.input :kind, as: :string%>
     <%= form.input :starts_at,as: :string, input_html: {id: "start_date"} %>
     <%= form.input :ends_at,as: :string, input_html: {id: "end_date"}%>
-    <%= form.input :weekly_recurring, as: :check_boxes %>
+    <%= form.input :weekly_recurring, as: :boolean %>
     <%end %>
 
   <%= f.button :submit, class: "btn-primary" %>

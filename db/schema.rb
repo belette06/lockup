@@ -10,20 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_03_100444) do
+ActiveRecord::Schema.define(version: 2019_06_08_103054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "appointments", force: :cascade do |t|
-    t.bigint "home_id", null: false
     t.datetime "starts_at"
     t.datetime "ends_at"
-    t.string "kind"
+    t.string "kind", null: false
     t.boolean "weekly_recurring"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["home_id"], name: "index_appointments_on_home_id"
   end
 
   create_table "homes", force: :cascade do |t|
@@ -31,6 +29,8 @@ ActiveRecord::Schema.define(version: 2019_06_03_100444) do
     t.bigint "proprietor_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "appointment_id", null: false
+    t.index ["appointment_id"], name: "index_homes_on_appointment_id"
     t.index ["proprietor_id"], name: "index_homes_on_proprietor_id"
   end
 
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2019_06_03_100444) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "appointments", "homes"
+  add_foreign_key "homes", "appointments"
   add_foreign_key "homes", "proprietors"
   add_foreign_key "proprietors", "users"
   add_foreign_key "relations", "homes"
