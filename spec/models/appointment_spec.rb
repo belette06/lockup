@@ -10,6 +10,11 @@
 #  weekly_recurring :boolean
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  tenant_id        :bigint(8)
+#
+# Indexes
+#
+#  index_appointments_on_tenant_id  (tenant_id)
 #
 
 require 'rails_helper'

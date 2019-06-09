@@ -10,10 +10,16 @@
 #  weekly_recurring :boolean
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  tenant_id        :bigint(8)
+#
+# Indexes
+#
+#  index_appointments_on_tenant_id  (tenant_id)
 #
 
 class Appointment < ApplicationRecord
   has_one :home
+  belongs_to :tenant, optional: true
 
 
   TIME_STEP = 1.day

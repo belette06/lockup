@@ -18,16 +18,14 @@ class HomesController < ApplicationController
   def create
     @home = @proprietor.homes.build
     @home.appointment= @home.build_appointment
-
     @home.name = params[:home][:name]
     @home.appointment.kind = params[:home][:appointment][:kind]
     @home.appointment.starts_at = params[:home][:appointment][:starts_at]
     @home.appointment.ends_at = params[:home][:appointment][:ends_at]
     @home.appointment.weekly_recurring= params[:home][:appointment][:weekly_recurring]
 
-     if @home.save
-
-       redirect_to @home, notice: 'Home create'
+   if  @home.save
+      redirect_to @home, notice: 'Home create'
     else
       render :new
     end
@@ -53,6 +51,16 @@ class HomesController < ApplicationController
 
   def params_homes
   params.require(:home).permit(:name, :proprietor, appointment:[:kind , :starts_at , :ends_at, :weekly_recurring])
+  end
+
+
+  def params_appointment
+    params.require(:appointment).permit(:kind , :starts_at , :ends_at, :weekly_recurring)
+
+  end
+
+  def params_home
+    params.require(:home).permit(:name, :proprietor)
 
   end
 

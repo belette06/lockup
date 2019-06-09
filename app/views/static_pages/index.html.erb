@@ -32,6 +32,7 @@ require 'pry'
                   <p> <% if @homes.present? %>
                     <ul><% @homes.each do |f| %>
                         <li>  <%= f.name %></li><br>
+                        <li>  <%= f.appointment.starts_at %> - <%= f.appointment.starts_at %></li>
                         <li>  <%= link_to'ajouter une reservation', new_home_appointment_path(f.id) %></li>
                         <li>  <%= link_to'voir les reservations',   home_appointments_path(f.id) %></li>
                         <hr>

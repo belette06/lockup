@@ -1,17 +1,12 @@
-<h3>opennings</h3>
-<%= form_for appointment do |f| %>
-  <%if @appointment.kind.nil?  %>
-  <%= render 'appointments/form' %>
-<%else %>
-<h3>appointment</h3>
-     <%= f.datetime :starts_at  %><br/>
-     <%= f.datetime :ends_at %><br/>
-    <%= f.hidden_field :kind, :value => "appointments" %>
-     Recurrence <%=f.check_box :weekly_recurring, default: false%><br/>
-  Create for tenant
-  <%= fields_for :tenant, @tenant do |form| %>
-    <%= form.text_field :name %><br/>
-    <%end %>
+<%= simple_form_for [@home,@appointment], html: {class: 'horizontal_form container'} do |f| %>
+    <%= f.input :kind, :as => :hidden, :input_html => { :value => "appointment" }%>
+    <%= f.input :starts_at,as: :string, input_html: {id: "start_date"} %>
+    <%= f.input :ends_at,as: :string, input_html: {id: "end_date"}%>
+    <%= f.input :weekly_recurring, as: :boolean %>
+  <%=f.simple_fields_for @tenant.tenant do |form|%>
+    <%= form.input :name %>
+  <%end %>
+
+  <%= f.button :submit, class: "btn-primary" %>
 <%end %>
-  <%= f.submit %>
-<% end %>
+

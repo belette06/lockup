@@ -1,14 +1,23 @@
-
-<p id="notice"><%= notice %></p>
-
 <h1>HOMES #show</h1>
 <table>
   <tbody>
     <tr>
       <td><%= @home.name %></td>
-
+      <td><%= @home.appointment.id %></td>
     </tr>
-  </tbody>
+    <tr>
+      <td> </td>
+      <td><%= @home.appointment.kind %></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><%= @home.appointment.starts_at %></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><%= @home.appointment.ends_at %></td>
+    </tr>
+
 </table>
 
 <br>

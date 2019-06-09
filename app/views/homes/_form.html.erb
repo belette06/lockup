@@ -2,7 +2,7 @@ require 'pry'
 <%= simple_form_for @home, html: {class: 'horizontal_form container'} do |f| %>
     <%= f.input :name %>
   <%=f.simple_fields_for @home.appointment do |form|%>
-    <%=form.input :kind, as: :string%>
+    <%=form.input :kind, :as => :hidden, :input_html => { :value => "opening" }%>
     <%= form.input :starts_at,as: :string, input_html: {id: "start_date"} %>
     <%= form.input :ends_at,as: :string, input_html: {id: "end_date"}%>
     <%= form.input :weekly_recurring, as: :boolean %>

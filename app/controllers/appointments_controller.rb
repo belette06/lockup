@@ -5,7 +5,7 @@ class AppointmentsController < ApplicationController
   before_action :set_home, only: %i[new create edit update destroy index]
 
   def index
-    @appointments = @home.appointments.all
+    @appointments = @home.appointment
 
     respond_to do |format|
       format.html { render action: "index" }
@@ -18,8 +18,8 @@ class AppointmentsController < ApplicationController
   end
 
   def new
-    @appointment = Appointment.new
-    #@tenant = Tenant.new
+    @appointment = @home.build_appointment
+    @appointment.tenant = Tenant.new
   end
 
   def edit
@@ -27,13 +27,9 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @appointment = Appointment.new
-   # @tenant = Tenant.new(tenant_params)
-    #@appointment.kind = "appointments"
-    @appointment.home_id = @home.id
-    if @tenant.save
-      @appointment.tenant_id = @tenant.id
-    end
+    @appointment = @home.build_appointment
+    @tenant = Tenant.new(params[:tenant])
+    @tenant.name = params[:appointment][:tenant][:name]
 
     respond_to do |format|
       if @appointment.save
