@@ -19,7 +19,6 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = @home.build_appointment
-    @appointment.tenant = Tenant.new
   end
 
   def edit
@@ -28,18 +27,33 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = @home.build_appointment
-    @tenant = Tenant.new(params[:tenant])
-    @tenant.name = params[:appointment][:tenant][:name]
+    #@tenant = Tenant.new(params[:tenant])
+    #@tenant.name = params[:appointment][:tenant][:name]
+    #
+    @email = params[:appointment][:email]
+    @tenant = User.find_by(email: @email)
+    @bookable = Appointment.find_by(tenant: @tenant, home: @home)
+    tenant = @tenant
+    email = @email
 
-    respond_to do |format|
-      if @appointment.save
-        format.html { redirect_to @home, notice: 'Product was successfully created.' }
-        format.json { render json: @appointment, status: :created, location: @appointment }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @appointment.errors, status: :unprocessable_entity }
-      end
+    if !@tenant.nil? && @bookable.nil? && @home.nil?
+      @appointment = Appointment.create(
+                                          home: @home,
+                                          tenant: @tenant,
+                                          kind: kind,
+                                          weekly_recurring: weekly_recurring,
+                                          ends_at: ends_at,
+                                          starts_at: starts_at,
+                                        )
+      @appointment.save
+      flash[:notice] = "#{tenant.name} Utilisateur est invite"
+    elsif !@tenant.nil? && !@bookable.nil?
+      flash[:notice] = "#{tenant.name} Utilisateur deja invite"
+    else
+      mailer_invitation_appointment(@email, @home)
+      flash[:notice] = "#{email} ne fait pas partie du site. Nous venons de lancer une invitation"
     end
+    #redirect_to tenant_home_path(@home)
   end
 
   def update
@@ -74,5 +88,9 @@ class AppointmentsController < ApplicationController
 
   def tenant_params
     params.require(:tenant).permit(:name)
+  end
+
+  def mailer_invitation_appointment(email, tenant)
+    UserMailer. invitation_home_mail(email, tenant).deliver_now
   end
 end

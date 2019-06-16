@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
       if @proprietor.nil? || @proprietor.empty?
         @proprietor = current_user.proprietor
         #if  !@homes.nil? || !@homes.empty?
-          #@homes = @proprietor.homes
+          @homes = @proprietor.homes
         #end
       end
     end
