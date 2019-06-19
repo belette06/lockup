@@ -1,6 +1,6 @@
-Reservation <%= @home.name %>-<%=@home.id  %>
+Reservation <%= @home.name %>-ID:<%=@home.id  %>
 
-
+require 'pry'
 <p id="notice"><%= notice %></p>
 
 <h1>Appointment #index</h1>
@@ -12,23 +12,9 @@ Reservation <%= @home.name %>-<%=@home.id  %>
     <th colspan="2"></th>
   </tr>
   </thead>
-
+<%=binding.pry %>
   <tbody>
-  <% @appointments.each do |f| %>
-    <tr>
-      <td>__Name__</td>
-    </tr>
-    <tr>
 
-      <td><%= f.tenant.name %></td>
-      <td>
-        <%= link_to 'Show', home_appointment_path(@home, f.id)%><br/>
-        <%= link_to 'Edit',  edit_home_appointment_path(@home,f.id) %><br/>
-        <%= link_to 'Destroy',  home_appointment_path(@home,f.id), method: :delete, data: { confirm: 'Are you sure?' } %>
-      </td>
-    </tr>
-
-  <% end %>
   </tbody>
 </table>
 

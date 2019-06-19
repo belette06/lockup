@@ -1,15 +1,7 @@
 
-  <%= form_tag(home_appointments_path(@home), authenticity_token: true,  method: 'POST', multipart: true) do%>
-    <div class="container form-group card-body text-primary">
-      <div>
-        <%= email_field_tag 'appointment[email]', '', class: ' form-control ', placeholder: 'Email'%>
-      </div>
-        <%= submit_tag "Inviter", class: " btn btn-success" %>
-     </div>
 
-  <%end %>
-
-<%= simple_form_for [@home,@appointment], html: {class: 'horizontal_form container'} do |f| %>
+<%= simple_form_for @appointment, :url =>  home_appointments_path(@home), authenticity_token: true, multipart: true,  html: {class: 'horizontal_form container'} do |f| %>
+    <%= f.input :email, as: :string,  :input_html => { :value => "" } %>
     <%= f.input :kind, :as => :hidden, :input_html => { :value => "appointment" }%>
     <%= f.input :starts_at,as: :string, input_html: {id: "start_date"} %>
     <%= f.input :ends_at,as: :string, input_html: {id: "end_date"}%>

@@ -7,10 +7,6 @@ class AppointmentsController < ApplicationController
   def index
     @appointments = @home.appointment
 
-    respond_to do |format|
-      format.html { render action: "index" }
-      format.json { render json: @appointment }
-    end
   end
 
   def show
@@ -26,35 +22,24 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @appointment = @home.build_appointment
-    #@tenant = Tenant.new(params[:tenant])
-    #@tenant.name = params[:appointment][:tenant][:name]
-    #
+    @appointment = @home.build_appointment(params_appointment)
     @email = params[:appointment][:email]
+    @kind = "appointment"
     @tenant = User.find_by(email: @email)
-    @bookable = Appointment.find_by(tenant: @tenant, home: @home)
-    tenant = @tenant
     email = @email
-
-    if !@tenant.nil? && @bookable.nil? && @home.nil?
-      @appointment = Appointment.create(
-                                          home: @home,
-                                          tenant: @tenant,
-                                          kind: kind,
-                                          weekly_recurring: weekly_recurring,
-                                          ends_at: ends_at,
-                                          starts_at: starts_at,
-                                        )
-      @appointment.save
-      flash[:notice] = "#{tenant.name} Utilisateur est invite"
-    elsif !@tenant.nil? && !@bookable.nil?
-      flash[:notice] = "#{tenant.name} Utilisateur deja invite"
-    else
-      mailer_invitation_appointment(@email, @home)
-      flash[:notice] = "#{email} ne fait pas partie du site. Nous venons de lancer une invitation"
-    end
-    #redirect_to tenant_home_path(@home)
+binding.pry
+      if @tenant.nil?
+        @appointment.save
+        mailer_invitation_appointment(@email, @home)
+        flash[:notice] = "#{email} ne fait pas partie du site. Nous venons de lancer une invitation"
+        redirect_to root_path
+      else
+        mailer_invitation_appointment(@email, @home)
+        flash[:notice] = " #{email} deja inscrits sur le site invitation  envoyer "
+        redirect_to  root_path
+      end
   end
+
 
   def update
     @appointment = Appointment.find(params[:id])
@@ -82,12 +67,12 @@ class AppointmentsController < ApplicationController
 
   private
 
-  def set_home
-    @home = Home.find(params[:home_id])
+  def params_appointment
+    params.require(:appointment).permit(:home, :tenant, :kind, :weekly_recurring, :ends_at, :starts_at)
   end
 
-  def tenant_params
-    params.require(:tenant).permit(:name)
+  def set_home
+    @home = Home.find(params[:home_id])
   end
 
   def mailer_invitation_appointment(email, tenant)

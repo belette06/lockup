@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require "pry"
 class HomesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_homes, only: %i[show update edit destroy]
   before_action :set_proprietor, only: %i[index new create]
 

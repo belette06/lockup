@@ -18,13 +18,14 @@
 #
 
 class Appointment < ApplicationRecord
-  #after_create :invitation_to_appointment
   ####### Relationship
   has_one :home
   belongs_to :tenant, optional: true
 
 
   ######### Validates
+  validates :kind, :starts_at, :ends_at, presence: true
+  validates_exclusion_of :kind, in: %w[opening appointment]
 
 
   ######## Scope
@@ -33,12 +34,12 @@ class Appointment < ApplicationRecord
   scope :filter_by_date, ->(beginning_date, end_date){ where(starts_at: beginning_date..end_date) }
   scope :weekly_events, -> { where(weekly_recurring: true) }
 
-  ####### Mailer
-  def invitation_to_appointment
-    UserMailer.invitation_appointment_mail(self).deliver_now
-  end
+
 
   ######## Methodes
+
+
+
   TIME_STEP = 1.day
 
   class << self
