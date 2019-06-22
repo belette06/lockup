@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require "pry"
-class HomesController < ApplicationController
+class Proprietors::HomesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_homes, only: %i[show update edit destroy]
   before_action :set_proprietor, only: %i[index new create]
@@ -12,7 +12,7 @@ class HomesController < ApplicationController
   def show; end
 
   def new
-    @home= @proprietor.homes.build
+    @home = @proprietor.homes.build
     @home.build_appointment
   end
 
@@ -25,8 +25,10 @@ class HomesController < ApplicationController
     @home.appointment.ends_at = params[:home][:appointment][:ends_at]
     @home.appointment.weekly_recurring= params[:home][:appointment][:weekly_recurring]
 
+
+
    if  @home.save
-      redirect_to @home, notice: 'Home create'
+      redirect_to proprietors_home_path(@proprietor, @home), notice: 'Home create'
     else
       render :new
     end
@@ -36,8 +38,13 @@ class HomesController < ApplicationController
   def edit; end
 
   def update
+    @home.name = params[:home][:name]
+    @home.appointment.kind = params[:home][:appointment][:kind]
+    @home.appointment.starts_at = params[:home][:appointment][:starts_at]
+    @home.appointment.ends_at = params[:home][:appointment][:ends_at]
+    @home.appointment.weekly_recurring= params[:home][:appointment][:weekly_recurring]
     if @home.update(params_homes)
-      redirect_to @home, notice: 'updated..'
+      redirect_to proprietors_home_path(@proprietor, @home), notice: 'updated..'
     else
       render :edit
     end
@@ -45,20 +52,12 @@ class HomesController < ApplicationController
 
   def destroy
     @home.destroy
-      redirect_to @home, notice: 'destroy..'
+      redirect_to proprietor_home_path(@proprietor, @home), notice: 'destroy..'
   end
 
   private
 
-  def params_homes
-  params.require(:home).permit(:name, :proprietor, appointment:[:kind , :starts_at , :ends_at, :weekly_recurring])
-  end
 
-
-  def params_appointment
-    params.require(:appointment).permit(:kind , :starts_at , :ends_at, :weekly_recurring)
-
-  end
 
   def params_home
     params.require(:home).permit(:name, :proprietor)

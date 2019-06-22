@@ -1,6 +1,6 @@
 
 
-<%= simple_form_for @appointment, :url =>  home_appointments_path(@home), authenticity_token: true, multipart: true,  html: {class: 'horizontal_form container'} do |f| %>
+<%= simple_form_for @appointment, :url =>  homes_appointments_path(@home), authenticity_token: true, multipart: true,  html: {class: 'horizontal_form container'} do |f| %>
     <%= f.input :email, as: :string,  :input_html => { :value => "" } %>
     <%= f.input :kind, :as => :hidden, :input_html => { :value => "appointment" }%>
     <%= f.input :starts_at,as: :string, input_html: {id: "start_date"} %>

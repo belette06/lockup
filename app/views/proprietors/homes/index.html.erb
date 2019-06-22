@@ -1,0 +1,21 @@
+
+INDEX
+
+
+    <h1>Home</h1>
+
+
+  <% @homes.each do |home| %>
+  name: <%= home.name %>
+  <br>
+        <%= link_to 'Show', proprietor_home_path(home.id) %><br/>
+        <%= link_to 'Edit',  edit_proprietor_home_path(home.id) %><br/>
+        <%= link_to 'Destroy',  proprietor_home_path(home.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <hr>
+
+  <% end %>
+
+
+<%= link_to 'new Home', new_proprietor_home_path %><br/>
+<%= link_to 'espace proprietor', proprietor_homes_path %>
+

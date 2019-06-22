@@ -1,20 +1,16 @@
-# frozen_string_literal: true
+    # frozen_string_literal: true
 
 class ProprietorsController < ApplicationController
-  before_action :set_proprietor, only: %i[show edit update destroy]
   before_action :authenticate_user!
+  before_action :set_proprietor, only: %i[show edit update destroy]
 
-  def index
-    @proprietors = Proprietor.all
-  end
+def show
+  @homes = @proprietor.homes
+  @appointment = @homes
+end
 
   def new
     @proprietor = Proprietor.new
-#    @proprietor = current_user.proprietor.build_user
-  end
-
-  def show
-    # @proprietor = current_user.proprietor.build_user
   end
 
   def create

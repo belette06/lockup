@@ -1,5 +1,5 @@
-require 'pry'
-<%= simple_form_for @home, html: {class: 'horizontal_form container'} do |f| %>
+
+<%= simple_form_for @home, url: proprietors_homes_path , html: {class: 'horizontal_form container'} do |f| %>
     <%= f.input :name %>
   <%=f.simple_fields_for @home.appointment do |form|%>
     <%=form.input :kind, :as => :hidden, :input_html => { :value => "opening" }%>

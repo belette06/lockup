@@ -1,0 +1,27 @@
+Reservation <%= @home.name %>-ID:<%=@home.id  %>
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Appointment #index</h1>
+
+
+    <H2>Appointment</h2>
+
+    <% if @appointment %>
+      <%@appointments.each do |appointment| %>
+        <%if appointment.kind == "appointment" %>
+            <%= appointment.starts_at  %>
+            <%= appointment.ends_at  %>
+        <%end %>
+          <br>
+      <%end %>
+    <%end %>
+
+
+<br>
+
+<%= link_to 'new Home', new_homes_appointment_path %><br/>
+<%= link_to 'Espace home',  proprietors_homes_path %>
+
+

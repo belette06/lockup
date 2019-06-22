@@ -19,13 +19,13 @@
 
 class Appointment < ApplicationRecord
   ####### Relationship
-  has_one :home
+  has_one :home, dependent: :destroy
   belongs_to :tenant, optional: true
 
 
   ######### Validates
   validates :kind, :starts_at, :ends_at, presence: true
-  validates_exclusion_of :kind, in: %w[opening appointment]
+  validates :kind, inclusion: %w(opening appointment)
 
 
   ######## Scope
@@ -37,7 +37,6 @@ class Appointment < ApplicationRecord
 
 
   ######## Methodes
-
 
 
   TIME_STEP = 1.day

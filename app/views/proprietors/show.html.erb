@@ -4,11 +4,40 @@
   <b>title:</b>
   <%= current_user.proprietor.name %>
 </p>
-
-<%= link_to 'Edit', edit_proprietor_path(current_user.proprietor.id) %>
-
+<%= link_to 'Edit', edit_proprietor_path(current_user.proprietor.id) %> -
 <%= link_to 'delete', proprietor_path(current_user.proprietor.id), method: :delete %>
 <br>
+<hr>
 <br>
+<h3>MAISON</h3>
+    <%= link_to 'ajouter une Maison', new_proprietors_home_path%><br>
+<!-- PROPRIETOR-->
+<div>
+ <% if @homes.present? %>
+      <ul><% @homes.each do |f| %>
+          <li>  Name: <%= f.name %></li><br>
+          <li> <%= link_to 'Look ma home', proprietors_home_path(f.id) %></li>
+          <li> <%= link_to 'Edit ma home', edit_proprietors_home_path(f.id) %></li>
+          <hr>
+        <% end %>
+      </ul>
+    <%end %>
+</div>
+<div>
+  <h3>APPOINTMENT</h3>
+  <% if @appointment %>
+    <% @homes.each do |home|%>
+     <h2><% home.name %></h2>
+              <%  if home.appointment.kind == "appointment" %>
+                  <%= home.appointment.starts_at %>
+                  <%= home.appointment.ends_at %>
+                    <% if  home.appointment.tenant_id %> %>
+                      <%= Tenant.find_by(id: :appointment.tenant_id) %>
+                    <% end %>
+              <%end %>
+      <hr>
+    <%end %>
+<%end %>
+</div>
 <br>
 <%= link_to 'Landing page', root_path %>

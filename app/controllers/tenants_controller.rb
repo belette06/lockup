@@ -25,7 +25,7 @@ class TenantsController < ApplicationController
     @appointment = @home.appointment.build(params[:appointment])
     @tenant = Tenant.new(params[:tenant])
 
-    binding.pry
+
     if @tenant.valid?
       @tenant = @appointments.tenant
       if @tenant.name.any?

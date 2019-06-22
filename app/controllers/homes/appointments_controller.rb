@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require 'pry'
-class AppointmentsController < ApplicationController
-  before_action :set_home, only: %i[new create edit update destroy index]
+class Homes::AppointmentsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_home, only: %i[news create edit update destroy]
 
   def index
+
     @appointments = @home.appointment
 
   end
@@ -24,19 +26,19 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = @home.build_appointment(params_appointment)
     @email = params[:appointment][:email]
-    @kind = "appointment"
-    @tenant = User.find_by(email: @email)
-    email = @email
-binding.pry
-      if @tenant.nil?
-        @appointment.save
-        mailer_invitation_appointment(@email, @home)
-        flash[:notice] = "#{email} ne fait pas partie du site. Nous venons de lancer une invitation"
+    @appointment.kind = "appointment"
+    @user = User.find_by(email: @email)
+    @appointment.tenant = @user if @user == @email
+
+      if @appointment.save
+          mailer_invitation_appointment(@email, @home)
+          flash[:notice] = "#{@email} ne fait pas partie du site. Nous venons de lancer une invitation" if !@email.nil?
         redirect_to root_path
       else
-        mailer_invitation_appointment(@email, @home)
-        flash[:notice] = " #{email} deja inscrits sur le site invitation  envoyer "
-        redirect_to  root_path
+        redirect_to new_home_appointment_path(@home)
+        #mailer_invitation_appointment(@email, @home)
+        #flash[:notice] = " #{email} deja inscrits sur le site invitation  envoyer "
+        #redirect_to  root_path
       end
   end
 
@@ -72,7 +74,7 @@ binding.pry
   end
 
   def set_home
-    @home = Home.find(params[:home_id])
+    @home = Home.find(params[:id])
   end
 
   def mailer_invitation_appointment(email, tenant)
