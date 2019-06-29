@@ -3,7 +3,7 @@ require "pry"
 class Proprietors::HomesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_homes, only: %i[show update edit destroy]
-  before_action :set_proprietor, only: %i[index new create]
+  before_action :set_proprietor, only: %i[new create index new create]
 
   def index
     @homes = @proprietor.homes.all
@@ -12,23 +12,22 @@ class Proprietors::HomesController < ApplicationController
   def show; end
 
   def new
-    @home = @proprietor.homes.build
-    @home.build_appointment
+    @home = @proprietor.homes.new
+    @home.appointment= @home.build_appointment
   end
 
   def create
     @home = @proprietor.homes.build
-    @home.appointment= @home.build_appointment
+    @home.appointment = @home.build_appointment
     @home.name = params[:home][:name]
     @home.appointment.kind = params[:home][:appointment][:kind]
     @home.appointment.starts_at = params[:home][:appointment][:starts_at]
     @home.appointment.ends_at = params[:home][:appointment][:ends_at]
-    @home.appointment.weekly_recurring= params[:home][:appointment][:weekly_recurring]
+    @home.appointment.weekly_recurring = params[:home][:appointment][:weekly_recurring]
 
-
-
+    @home.appointment.home_id = params[:home][:appointment][:home_id]
    if  @home.save
-      redirect_to proprietors_home_path(@proprietor, @home), notice: 'Home create'
+     redirect_to proprietors_home_path(@proprietor, @home), notice: 'Home create'
     else
       render :new
     end
@@ -38,11 +37,11 @@ class Proprietors::HomesController < ApplicationController
   def edit; end
 
   def update
-    @home.name = params[:home][:name]
-    @home.appointment.kind = params[:home][:appointment][:kind]
-    @home.appointment.starts_at = params[:home][:appointment][:starts_at]
-    @home.appointment.ends_at = params[:home][:appointment][:ends_at]
-    @home.appointment.weekly_recurring= params[:home][:appointment][:weekly_recurring]
+    @home.name = params[:homes][:name]
+    @home.appointment.kind = params[:homes][:appointment][:kind]
+    @home.appointment.starts_at = params[:homes][:appointment][:starts_at]
+    @home.appointment.ends_at = params[:homes][:appointment][:ends_at]
+    @home.appointment.weekly_recurring= params[:homes][:appointment][:weekly_recurring]
     if @home.update(params_homes)
       redirect_to proprietors_home_path(@proprietor, @home), notice: 'updated..'
     else
@@ -57,10 +56,8 @@ class Proprietors::HomesController < ApplicationController
 
   private
 
-
-
   def params_home
-    params.require(:home).permit(:name, :proprietor)
+    params.require(:homes).permit(:name, :proprietor)
 
   end
 
@@ -72,3 +69,4 @@ class Proprietors::HomesController < ApplicationController
     @proprietor = current_user.proprietor
   end
 end
+

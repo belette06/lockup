@@ -10,10 +10,12 @@
 #  weekly_recurring :boolean
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  home_id          :bigint(8)
 #  tenant_id        :bigint(8)
 #
 # Indexes
 #
+#  index_appointments_on_home_id    (home_id)
 #  index_appointments_on_tenant_id  (tenant_id)
 #
 

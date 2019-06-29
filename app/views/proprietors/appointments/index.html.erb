@@ -1,0 +1,28 @@
+Reservation <%= @home.name %>-ID:<%=@home.id  %>
+
+
+<div>
+  <br/>
+  <h3>APPOINTMENT</h3>
+  <%= link_to 'new appointment', new_proprietors_home_appointment_path(@home) %>
+
+  <hr/>
+  <% @appointments.each do |appointment| %>
+
+  <%= appointment.starts_at %><br/>
+  <%= appointment.ends_at %><br/>
+  <%= appointment.tenant_id %>
+    <%= link_to'edit appointment', edit_proprietors_home_appointment_path(@home,appointment.id) %><br/>
+    <%= link_to'delete appointment', proprietors_home_appointment_path(@home, appointment.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+<hr/>
+  <%end %>
+
+</div>
+
+
+<br>
+
+
+<%= link_to 'Espace homes',  proprietors_homes_path %>
+
+

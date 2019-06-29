@@ -13,9 +13,12 @@ Rails.application.routes.draw do
   resources :proprietors, except: %i[ index]
 
   namespace :proprietors do
-    resources :homes, except: %i[ index]
+    resources :homes do
     resources :appointments
     end
+  end
+
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

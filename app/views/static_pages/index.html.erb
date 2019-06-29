@@ -13,7 +13,7 @@
 
                 <% if @proprietor.present?%>
                   <%= link_to 'Espace le proprietaire', proprietor_path(@proprietor.id) %><br>
-                  <%= link_to 'ajouter une Maison', new_proprietors_home_path%><br>
+                  <%= link_to 'ajouter une Maison', new_proprietors_home_path %><br>
                 <%else %>
                   <%= link_to 'Cree le proprietaire', new_proprietor_path %>
                 <%end %>

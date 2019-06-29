@@ -10,10 +10,12 @@
 #  weekly_recurring :boolean
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  home_id          :bigint(8)
 #  tenant_id        :bigint(8)
 #
 # Indexes
 #
+#  index_appointments_on_home_id    (home_id)
 #  index_appointments_on_tenant_id  (tenant_id)
 #
 
@@ -22,11 +24,9 @@ class Appointment < ApplicationRecord
   has_one :home, dependent: :destroy
   belongs_to :tenant, optional: true
 
-
   ######### Validates
   validates :kind, :starts_at, :ends_at, presence: true
   validates :kind, inclusion: %w(opening appointment)
-
 
   ######## Scope
   scope :openings, -> { where(kind: :opening) }
@@ -34,11 +34,7 @@ class Appointment < ApplicationRecord
   scope :filter_by_date, ->(beginning_date, end_date){ where(starts_at: beginning_date..end_date) }
   scope :weekly_events, -> { where(weekly_recurring: true) }
 
-
-
   ######## Methodes
-
-
   TIME_STEP = 1.day
 
   class << self

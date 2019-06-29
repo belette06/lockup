@@ -25,7 +25,7 @@
 require 'rails_helper'
 
 RSpec.describe Home, type: :model do
-  it 'create home' do
+  it 'create homes' do
     Home.create(name: "teste_name")
   end
 

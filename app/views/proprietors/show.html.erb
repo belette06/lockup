@@ -1,3 +1,5 @@
+require 'pry'
+
 <h1>Proprietors#show</h1>
 <p id="notice"><%= notice %></p>
 <p>
@@ -14,30 +16,16 @@
 <!-- PROPRIETOR-->
 <div>
  <% if @homes.present? %>
-      <ul><% @homes.each do |f| %>
-          <li>  Name: <%= f.name %></li><br>
-          <li> <%= link_to 'Look ma home', proprietors_home_path(f.id) %></li>
-          <li> <%= link_to 'Edit ma home', edit_proprietors_home_path(f.id) %></li>
+      <ul><% @homes.each do |home| %>
+          <li>  Name: <%= home.name %></li><br>
+          <li> <%= link_to 'Look ma homes', proprietors_home_path(home.id) %></li>
+          <li> <%= link_to 'Edit ma homes', edit_proprietors_home_path(home.id) %></li>
+          <li> <%= link_to 'look at a appointment',  proprietors_home_appointments_path(home.id)  %></li>
           <hr>
         <% end %>
       </ul>
     <%end %>
 </div>
-<div>
-  <h3>APPOINTMENT</h3>
-  <% if @appointment %>
-    <% @homes.each do |home|%>
-     <h2><% home.name %></h2>
-              <%  if home.appointment.kind == "appointment" %>
-                  <%= home.appointment.starts_at %>
-                  <%= home.appointment.ends_at %>
-                    <% if  home.appointment.tenant_id %> %>
-                      <%= Tenant.find_by(id: :appointment.tenant_id) %>
-                    <% end %>
-              <%end %>
-      <hr>
-    <%end %>
-<%end %>
-</div>
+
 <br>
-<%= link_to 'Landing page', root_path %>
+<%= link_to 'proprietor', proprietors_home_appointments_path(@proprietor) %>

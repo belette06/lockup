@@ -22,7 +22,7 @@
 require 'rails_helper'
 
 RSpec.describe Proprietor, type: :model do
-  it 'create home' do
+  it 'create homes' do
     Proprietor.create(name: "teste_name")
   end
 end

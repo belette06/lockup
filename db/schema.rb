@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(version: 2019_06_22_073434) do
     t.string "kind", null: false
     t.boolean "weekly_recurring"
     t.bigint "tenant_id"
+    t.bigint "home_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["home_id"], name: "index_appointments_on_home_id"
     t.index ["tenant_id"], name: "index_appointments_on_tenant_id"
   end
 
@@ -46,10 +48,10 @@ ActiveRecord::Schema.define(version: 2019_06_22_073434) do
 
   create_table "relations", force: :cascade do |t|
     t.bigint "tenant_id", null: false
-    t.bigint "home_id", null: false
+    t.bigint "homes_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["home_id"], name: "index_relations_on_home_id"
+    t.index ["homes_id"], name: "index_relations_on_homes_id"
     t.index ["tenant_id"], name: "index_relations_on_tenant_id"
   end
 
@@ -80,7 +82,7 @@ ActiveRecord::Schema.define(version: 2019_06_22_073434) do
   add_foreign_key "homes", "appointments"
   add_foreign_key "homes", "proprietors"
   add_foreign_key "proprietors", "users"
-  add_foreign_key "relations", "homes"
+  add_foreign_key "relations", "homes", column: "homes_id"
   add_foreign_key "relations", "tenants"
   add_foreign_key "tenants", "users"
 end

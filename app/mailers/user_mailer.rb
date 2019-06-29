@@ -13,8 +13,8 @@ class UserMailer < ApplicationMailer
 
  ## def invitation_appointment_mail(appointment)
   #  @appointment = appointment
-   # @home = @appointment.home
-   # @title = @appointment.home.title
+   # @homes = @appointment.homes
+   # @title = @appointment.homes.title
    # mail(to: @appointment.tenant.email, subject: "Invitation a rejoindre un rendez vous ")
   #end
 

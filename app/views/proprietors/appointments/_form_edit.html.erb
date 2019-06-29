@@ -1,0 +1,12 @@
+
+
+<%= simple_form_for [@home,@appointment], :url =>  proprietors_home_appointment_path(@home, @appointment), authenticity_token: true, multipart: true,  html: {class: 'horizontal_form container'} do |f| %>
+
+  <%= f.input :kind, :as => :hidden, :input_html => { :value => "appointment" }%>
+  <%= f.input :starts_at,as: :string, input_html: {id: "start_date"} %>
+  <%= f.input :ends_at,as: :string, input_html: {id: "end_date"}%>
+  <%= f.input :weekly_recurring, as: :boolean %>
+
+  <%= f.button :submit, class: "btn-primary" %>
+<%end %>
+
