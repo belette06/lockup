@@ -21,6 +21,8 @@ require 'pry'
           <li> <%= link_to 'Look ma homes', proprietors_home_path(home.id) %></li>
           <li> <%= link_to 'Edit ma homes', edit_proprietors_home_path(home.id) %></li>
           <li> <%= link_to 'look at a appointment',  proprietors_home_appointments_path(home.id)  %></li>
+          <li> <%= link_to 'delete home',  proprietors_home_path(home.id), method: :delete, data: { confirm: 'Are you sure?' }   %></li>
+
           <hr>
         <% end %>
       </ul>

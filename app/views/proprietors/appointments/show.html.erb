@@ -1,27 +1,14 @@
 <h1>Appointments#show</h1>
-<p>Find me in app/views/appointments/show.html.erb</p>
-<table>
-  <tr>
-    <td>|Appointment</td>
-    <td>|Home</td>
-    <td>|tenant</td>
-  </tr>
-  <tr>
-   <td><%=@appointment.id%></td>
-   <td>|<%=@appointment.home_id%> </td>
-   <td>|<%=@appointment.tenant_id%> </td>
-  </tr>
-  <tr>
-    <td>
+<h3><%= @appointment.id%></h3>
 
-    </td>
-    <td>|<%=@appointment.home.name%></td>
-    <td>|<%=@appointment.tenant.name%></td>
-  </tr>
-</table>
+<p>starts_at: <%= @appointment.starts_at %></p>
+<p>ends_at: <%= @appointment.ends_at %></p>
+<p>weekly_recurring: <%= @appointment.weekly_recurring %></p>
+<p>home_id: <%= @appointment.home_id %></p>
+<p>tenant_id: <%= @appointment.tenant_id  %></p>
 
 
-<%= link_to "landing Pages", root_path %>
+<%= link_to 'Espace homes',   proprietors_home_appointments_path %>
 
 
 

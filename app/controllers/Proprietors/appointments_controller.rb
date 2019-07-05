@@ -21,6 +21,7 @@ class AppointmentsController < HomesController
     end
 
     def edit
+      @home = Home.find(params[:home_id])
     end
 
     def create
@@ -35,14 +36,14 @@ class AppointmentsController < HomesController
       if @appointment.save
         mailer_invitation_appointment(@email, @home)
         flash[:notice] = "#{@email} ne fait pas partie du site. Nous venons de lancer une invitation" if !@email.nil?
-        redirect_to new_proprietors_home_appointment_path(@home)
+        redirect_to proprietors_home_appointments_path
       end
     end
 
-
     def update
+      @home = Home.find(params[:home_id])
         if @appointment.update(appointment_params)
-          redirect_to new_proprietors_home_appointment_path(@home)
+          redirect_to proprietors_home_appointments_path
         else
           render :edit
       end
@@ -50,14 +51,14 @@ class AppointmentsController < HomesController
 
     def destroy
       @appointment.destroy
-      redirect_to new_proprietors_home_appointment_path(@home)
+      redirect_to proprietors_home_appointments_path
     end
 
     private
 
-    def params_appointment
-      params.require(:appointment).permit(:homes, :tenant, :kind, :weekly_recurring, :ends_at, :starts_at)
-    end
+    ##def params_appointment
+    ##  params.require(:appointment).permit(:homes, :tenant, :kind, :weekly_recurring, :ends_at, :starts_at)
+    ##end
 
     def set_appointment
       @appointment = Appointment.find(params[:id])

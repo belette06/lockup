@@ -9,8 +9,6 @@ def show
   @openning = Appointment.openings
   @appointement = Appointment.appointments
 
-
-
 end
 
   def new
@@ -19,17 +17,15 @@ end
 
   def create
     @proprietor = Proprietor.new(params_proprietor)
-    # @proprietor.user.id = current_user.id
-    # @proprietor = current_user.build_proprietor(params_proprietor)
     @proprietor.user = current_user
     if @proprietor.save
       redirect_to root_path, notice: 'Proprietor was successfully create.'
     else
-      render :edit
+      render :new
     end
   end
 
-  def edit; end
+  def edit;  end
 
   def update
     if @proprietor.update(params_proprietor)

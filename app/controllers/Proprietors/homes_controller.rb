@@ -2,14 +2,15 @@
 require "pry"
 class Proprietors::HomesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_homes, only: %i[show update edit destroy]
-  before_action :set_proprietor, only: %i[new create index new create]
+  before_action :set_proprietor
 
   def index
     @homes = @proprietor.homes.all
   end
 
-  def show; end
+  def show
+    @home = Home.find(params[:id]) || Home.find(params[:home_id])
+  end
 
   def new
     @home = @proprietor.homes.new
@@ -24,45 +25,40 @@ class Proprietors::HomesController < ApplicationController
     @home.appointment.starts_at = params[:home][:appointment][:starts_at]
     @home.appointment.ends_at = params[:home][:appointment][:ends_at]
     @home.appointment.weekly_recurring = params[:home][:appointment][:weekly_recurring]
-
-    @home.appointment.home_id = params[:home][:appointment][:home_id]
+    @home.appointment.home_id = @home.id
    if  @home.save
+     @home.appointment.save
      redirect_to proprietors_home_path(@proprietor, @home), notice: 'Home create'
     else
       render :new
     end
   end
 
-
-  def edit; end
+  def edit
+    @home = Home.find(params[:id]) || Home.find(params[:home_id])
+  end
 
   def update
-    @home.name = params[:homes][:name]
-    @home.appointment.kind = params[:homes][:appointment][:kind]
-    @home.appointment.starts_at = params[:homes][:appointment][:starts_at]
-    @home.appointment.ends_at = params[:homes][:appointment][:ends_at]
-    @home.appointment.weekly_recurring= params[:homes][:appointment][:weekly_recurring]
-    if @home.update(params_homes)
-      redirect_to proprietors_home_path(@proprietor, @home), notice: 'updated..'
+    @home = Home.find(params[:id]) || Home.find(params[:home_id])
+    @home.name = params_home[:name]
+    @home.save if @home.name_changed?
+    if @home.appointment.update(params_home[:appointment])
+     redirect_to proprietors_home_path(@proprietor, @home), notice: 'updated..'
     else
       render :edit
     end
   end
 
   def destroy
+    @home = Home.find(params[:id]) || Home.find(params[:home_id])
     @home.destroy
-      redirect_to proprietor_home_path(@proprietor, @home), notice: 'destroy..'
+      redirect_to proprietors_homes_path(@proprietor), notice: 'destroy..'
   end
 
   private
 
   def params_home
-    params.require(:homes).permit(:name, :proprietor)
-
-  end
-
-  def set_homes
-    @home = Home.find(params[:id])
+    params.require(:home).permit(params.keys, :name, appointment: ([:kind, :starts_at, :ends_at, :weekly_recurring])).to_h
   end
 
   def set_proprietor

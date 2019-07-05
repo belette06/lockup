@@ -9,9 +9,11 @@ Reservation <%= @home.name %>-ID:<%=@home.id  %>
   <hr/>
   <% @appointments.each do |appointment| %>
 
+<%= link_to proprietors_home_appointment_path(@home, appointment.id) do %>
   <%= appointment.starts_at %><br/>
   <%= appointment.ends_at %><br/>
   <%= appointment.tenant_id %>
+      <%end %>
     <%= link_to'edit appointment', edit_proprietors_home_appointment_path(@home,appointment.id) %><br/>
     <%= link_to'delete appointment', proprietors_home_appointment_path(@home, appointment.id), method: :delete, data: { confirm: 'Are you sure?' } %>
 <hr/>
