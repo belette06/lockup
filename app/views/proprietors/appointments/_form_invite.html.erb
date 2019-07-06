@@ -1,0 +1,6 @@
+<%= form_for @invite , :url => invites_path do |f| %>
+  <%= f.hidden_field :user_appointment_id, :value => @invite.appointment %>
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+  <%= f.submit 'Send' %>
+<% end %>

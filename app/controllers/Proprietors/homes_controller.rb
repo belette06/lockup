@@ -25,10 +25,10 @@ class Proprietors::HomesController < ApplicationController
     @home.appointment.starts_at = params[:home][:appointment][:starts_at]
     @home.appointment.ends_at = params[:home][:appointment][:ends_at]
     @home.appointment.weekly_recurring = params[:home][:appointment][:weekly_recurring]
-    @home.appointment.home_id = @home.id
    if  @home.save
+     @home.appointment.home_id = @home.id
      @home.appointment.save
-     redirect_to proprietors_home_path(@proprietor, @home), notice: 'Home create'
+     redirect_to proprietors_home_path(@proprietor), notice: 'Home create'
     else
       render :new
     end

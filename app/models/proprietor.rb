@@ -22,4 +22,6 @@
 class Proprietor < ApplicationRecord
   belongs_to :user
   has_many :homes
+
+
 end

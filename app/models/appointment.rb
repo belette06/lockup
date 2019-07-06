@@ -24,6 +24,8 @@ class Appointment < ApplicationRecord
   has_one :home, dependent: :destroy
   belongs_to :tenant, optional: true
 
+  has_many :invites
+
   ######### Validates
   validates :kind, :starts_at, :ends_at, presence: true
   validates :kind, inclusion: %w(opening appointment)

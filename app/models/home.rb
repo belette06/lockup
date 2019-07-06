@@ -27,6 +27,7 @@ class Home < ApplicationRecord
   belongs_to :appointment
 
 
+
   #serialize :appointment
 
   validates :name, presence: true

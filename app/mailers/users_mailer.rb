@@ -1,5 +1,6 @@
-class UserMailer < ApplicationMailer
+class UsersMailer < ApplicationMailer
   default from: 'notifications@example.com'
+
 
   def welcome_email(user) #model
     @user = user
@@ -8,14 +9,14 @@ class UserMailer < ApplicationMailer
   end
 
   def contact
-     mail(to: 'contact@test.fr', subject:'sujet de test')
+    mail(to: 'contact@test.fr', subject:'sujet de test')
   end
 
- ## def invitation_appointment_mail(appointment)
+  ## def invitation_appointment_mail(appointment)
   #  @appointment = appointment
-   # @homes = @appointment.homes
-   # @title = @appointment.homes.title
-   # mail(to: @appointment.tenant.email, subject: "Invitation a rejoindre un rendez vous ")
+  # @homes = @appointment.homes
+  # @title = @appointment.homes.title
+  # mail(to: @appointment.tenant.email, subject: "Invitation a rejoindre un rendez vous ")
   #end
 
   def  invitation_home_mail(email, home) #controller
@@ -23,6 +24,4 @@ class UserMailer < ApplicationMailer
     @email = email
     mail(to: @email, subject: "Invitation à devenir membre ")
   end
-
-
 end

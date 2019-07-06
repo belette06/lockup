@@ -16,6 +16,7 @@ class AppointmentsController < HomesController
     end
 
     def new
+      @invite = Invite.new
       @appointment = Appointment.new
       @home = @proprietor.homes
     end
@@ -25,16 +26,41 @@ class AppointmentsController < HomesController
     end
 
     def create
+      @invite = Invite.new
       @home = @proprietor.homes
       @appointment = Appointment.new(appointment_params)
-      @email = params[:appointment][:email]
+
+      @invite.email = params[:appointment][:invite][:email]
+      @invite.sender_id = current_user.id
+
       @appointment.kind = "appointment"
       @user = User.find_by(email: @email)
       @appointment.tenant = @user if @user == @email
       @appointment.home_id = params[:appointment][:home]
-
+puts "1===================================="
       if @appointment.save
-        mailer_invitation_appointment(@email, @home)
+        @invite.appointment_id = current_user.id
+        puts "2===================================="
+
+
+        if @invite.save
+
+          #if the user already exists
+          if @invite.recipient != nil
+
+            #send a notification email
+            InvitesMailer.existing_user_invite(@invite).deliver
+
+            #Add the user to the user group
+            @invite.recipient.user_groups.push(@invite.user_group)
+
+          else
+            InvitesMailer.new_user_invite(@invite, new_user_registration_path(:invite_token => @invite.token)).deliver
+          end
+        else
+          # oh no, creating an new invitation failed
+        end
+           # mailer_invitation_appointment(@email, @home)
         flash[:notice] = "#{@email} ne fait pas partie du site. Nous venons de lancer une invitation" if !@email.nil?
         redirect_to proprietors_home_appointments_path
       end
