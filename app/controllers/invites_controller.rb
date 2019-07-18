@@ -5,7 +5,7 @@ class InvitesController < ApplicationController
     @invites = Invite.all
   end
 
-  def show;
+  def show
 
   end
 
@@ -40,7 +40,7 @@ class InvitesController < ApplicationController
   private
 
   def set_invites
-    @invite =  @invite = Invite.find(params[:invite_id])
+    @invite =  @invite = Invite.find(params[:id])
   end
 
   def params_invite

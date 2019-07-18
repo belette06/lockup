@@ -26,10 +26,10 @@
 class User < ApplicationRecord
   after_create :welcome_send
 
-   has_one :proprietor
+   has_one :proprietor, dependent: :destroy
    accepts_nested_attributes_for :proprietor
 
-  has_one :tenant
+  has_one :tenant, dependent: :destroy
   accepts_nested_attributes_for :tenant
 
   has_many :invitations, :class_name => "Appointment", :foreign_key => 'recipient_id'

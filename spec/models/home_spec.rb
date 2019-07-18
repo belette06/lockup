@@ -29,6 +29,10 @@ RSpec.describe Home, type: :model do
     Home.create(name: "teste_name")
   end
 
+  describe 'Database' do
+    it { is_expected.to have_db_column(:id).of_type(:integer).with_options(null: false)}
+    it { is_expected.to have_db_column(:name).of_type(:string) }
+  end
 
 
 end

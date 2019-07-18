@@ -9,6 +9,10 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
+require 'support/factory_bot'
+
+require 'simplecov'
+SimpleCov.start
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
@@ -41,6 +45,9 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+
+  config.include FactoryBot::Syntax::Methods
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

@@ -22,8 +22,12 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
-
+require 'faker'
 FactoryBot.define do
   factory :user do
+      email { Faker::Internet.unique.email }
+      password { "password" }
+      password_confirmation { "password" }
   end
+
 end

@@ -16,10 +16,14 @@
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
   </div>
-
+  <% if @token != nil %>
+    <%= hidden_field_tag :invite_token, @token %>
+  <% end %>
   <div class="form-actions">
     <%= f.button :submit, "Sign up" %>
   </div>
 <% end %>
-
+<% if @token != nil %>
+  <%= hidden_field_tag :invite_token, @token %>
+<% end %>
 <%= render "users/shared/links" %>

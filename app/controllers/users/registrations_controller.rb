@@ -5,14 +5,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+   def new
+     @token = params[:invite_token] #<-- pulls the value from the url query string
+     super
+   end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+   def create
+     @newUser = build_user(user_params)
+     @newUser.save
+     @token = params[:invite_token]
+     if @token != nil
+        org =  Invite.find_by_token(@token).appointment #find the user group attached to the invite
+        @newUser.appointment.push(org) #add this user to the new user group as a member
+     else
+       super
+     end
+   end
 
   # GET /resource/edit
   # def edit

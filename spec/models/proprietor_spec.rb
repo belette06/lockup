@@ -22,7 +22,28 @@
 require 'rails_helper'
 
 RSpec.describe Proprietor, type: :model do
-  it 'create homes' do
-    Proprietor.create(name: "teste_name")
+  describe 'Database' do
+    it { is_expected.to have_db_column(:id).of_type(:integer).with_options(null: false)}
+    it { is_expected.to have_db_column(:name).of_type(:string).with_options(default: "", null: false) }
+  end
+
+
+
+  it 'validates testes' do
+   let(:proprietor) {create(:proprietor)}
+
+    it 'ensures presence name' do
+      should validate_presence_of(:name)
+    end
+  end
+
+  describe ' Factories' do
+    context ' with valid attributes' do
+      let(:proprietor) {build(:proprietor)}
+
+      it 'is valid with attributes' do
+        expect(:proprietor).to be_valid
+      end
+    end
   end
 end

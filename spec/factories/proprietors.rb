@@ -21,7 +21,6 @@
 
 FactoryBot.define do
   factory :proprietor do
-    name { "MyString" }
-    user { nil }
+    name { Faker::Name.name }
   end
 end
