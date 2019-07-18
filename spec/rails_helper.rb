@@ -11,8 +11,22 @@ require 'rspec/rails'
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 require 'support/factory_bot'
 
+require 'capybara/rails'
+require 'rspec/rails'
+require 'faker'
 require 'simplecov'
-SimpleCov.start
+require "pundit/rspec"
+
+SimpleCov.start do
+  add_filter "/spec/"
+end
+
+require 'codecov'
+
+SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
+                                                                    SimpleCov::Formatter::HTMLFormatter,
+                                                                    SimpleCov::Formatter::Codecov,
+                                                                ])
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|

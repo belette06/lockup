@@ -93,6 +93,10 @@ GEM
       xpath (~> 3.2)
     childprocess (1.0.1)
       rake (< 13.0)
+    codecov (0.1.14)
+      json
+      simplecov
+      url
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
@@ -330,6 +334,7 @@ GEM
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
     unicode_utils (1.4.0)
+    url (0.3.2)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (4.0.0)
@@ -361,6 +366,7 @@ DEPENDENCIES
   bootstrap-datepicker-rails
   byebug
   capybara (>= 2.15)
+  codecov
   devise
   dotenv-rails
   factory_bot_rails
