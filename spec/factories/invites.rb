@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: invites
@@ -14,10 +16,10 @@
 
 FactoryBot.define do
   factory :invite do
-    email { "MyString" }
+    email { 'MyString' }
     appointment_id { 1 }
-    sender_id { "" }
+    sender_id { '' }
     recipient_id { 1 }
-    token { "MyString" }
+    token { 'MyString' }
   end
 end

@@ -26,33 +26,26 @@
 class User < ApplicationRecord
   after_create :welcome_send
 
-   has_one :proprietor, dependent: :destroy
-   accepts_nested_attributes_for :proprietor
+  has_one :proprietor, dependent: :destroy
+  accepts_nested_attributes_for :proprietor
 
   has_one :tenant, dependent: :destroy
   accepts_nested_attributes_for :tenant
 
-  has_many :invitations, :class_name => "Appointment", :foreign_key => 'recipient_id'
-  has_many :sent_invites, :class_name => "Appointment", :foreign_key => 'sender_id'
-
-
-
-
+  has_many :invitations, class_name: 'Appointment', foreign_key: 'recipient_id'
+  has_many :sent_invites, class_name: 'Appointment', foreign_key: 'sender_id'
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
 
   validates :password, length: { in: 6..20, on: :create }
 
-
   def welcome_send
     UsersMailer.welcome_email(self).deliver_now
   end
-
 end

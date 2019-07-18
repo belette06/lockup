@@ -7,10 +7,9 @@ class CreateAppointments < ActiveRecord::Migration[6.0]
       t.datetime 'ends_at'
       t.string 'kind', null: false
       t.boolean 'weekly_recurring'
-      t.references :tenant,  optional: true
+      t.references :tenant, optional: true
       t.references :home
       t.timestamps
     end
-
   end
 end

@@ -1,19 +1,18 @@
 # frozen_string_literal: true
+
 require 'pry'
 
 module Proprietors
-class AppointmentsController < HomesController
-  before_action :set_appointment, only: %i[show edit update destroy]
+  class AppointmentsController < HomesController
+    before_action :set_appointment, only: %i[show edit update destroy]
     before_action :authenticate_user!
-
 
     def index
       @home = Home.find(params[:home_id])
       @appointments = Appointment.where(home_id: params[:home_id])
-    end
+  end
 
-    def show
-    end
+    def show; end
 
     def new
       @invite = Invite.new
@@ -33,46 +32,43 @@ class AppointmentsController < HomesController
       @invite.email = params[:appointment][:invite][:email]
       @invite.sender_id = current_user.id
 
-      @appointment.kind = "appointment"
+      @appointment.kind = 'appointment'
       @user = User.find_by(email: @email)
       @appointment.tenant = @user if @user == @email
       @appointment.home_id = params[:appointment][:home]
-puts "1===================================="
       if @appointment.save
         @invite.appointment_id = current_user.id
-        puts "2===================================="
-
 
         if @invite.save
 
-          #if the user already exists
-          if @invite.recipient != nil
+          # if the user already exists
+          if !@invite.recipient.nil?
 
-            #send a notification email
+            # send a notification email
             InvitesMailer.existing_user_invite(@invite).deliver
 
-            #Add the user to the user group
+            # Add the user to the user group
             @invite.recipient.user_groups.push(@invite.user_group)
 
           else
-            InvitesMailer.new_user_invite(@invite, new_user_registration_path(:invite_token => @invite.token)).deliver
+            InvitesMailer.new_user_invite(@invite, new_user_registration_path(invite_token: @invite.token)).deliver
           end
         else
-          # oh no, creating an new invitation failed
-        end
-           # mailer_invitation_appointment(@email, @home)
-        flash[:notice] = "#{@email} ne fait pas partie du site. Nous venons de lancer une invitation" if !@email.nil?
+        # oh no, creating an new invitation failed
+      end
+        # mailer_invitation_appointment(@email, @home)
+        flash[:notice] = "#{@email} ne fait pas partie du site. Nous venons de lancer une invitation" unless @email.nil?
         redirect_to proprietors_home_appointments_path
       end
     end
 
     def update
       @home = Home.find(params[:home_id])
-        if @appointment.update(appointment_params)
-          redirect_to proprietors_home_appointments_path
-        else
-          render :edit
-      end
+      if @appointment.update(appointment_params)
+        redirect_to proprietors_home_appointments_path
+      else
+        render :edit
+    end
     end
 
     def destroy
@@ -80,11 +76,11 @@ puts "1===================================="
       redirect_to proprietors_home_appointments_path
     end
 
-    private
+      private
 
-    ##def params_appointment
+    # #def params_appointment
     ##  params.require(:appointment).permit(:homes, :tenant, :kind, :weekly_recurring, :ends_at, :starts_at)
-    ##end
+    # #end
 
     def set_appointment
       @appointment = Appointment.find(params[:id])
@@ -97,6 +93,5 @@ puts "1===================================="
     def mailer_invitation_appointment(email, tenant)
       UserMailer. invitation_home_mail(email, tenant).deliver_now
     end
-  end
-
+    end
   end

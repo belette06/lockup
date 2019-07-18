@@ -1,4 +1,4 @@
-  # frozen_string_literal: true
+# frozen_string_literal: true
 
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
@@ -6,21 +6,21 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read('./.ruby-version')
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootstrap-datepicker-rails'
 gem 'devise'
 gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
 gem 'jbuilder', '~> 2.5'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'pry', '~> 0.12.2'
 gem 'puma', '~> 3.11'
+gem 'pundit'
 gem 'rails', '~> 6.0.0.rc1'
 gem 'redis-rails'
 gem 'sass-rails', '~> 5'
+gem 'simple_form'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
-gem "pundit"
-gem 'simple_form'
-gem 'bootstrap-datepicker-rails'
-
+gem 'lodash-rails'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -32,10 +32,10 @@ end
 group :development do
   gem 'annotate'
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem "relaxed-rubocop"
-  gem 'rubocop-rails'
+  gem 'relaxed-rubocop'
   gem 'rubocop', require: false
   gem 'rubocop-performance'
+  gem 'rubocop-rails'
   gem 'rubocop-rspec'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
@@ -44,15 +44,15 @@ end
 
 group :test do
   gem 'capybara', '>= 2.15'
+  gem 'codecov', require: false
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem 'webdrivers'
-  gem 'codecov', :require => false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "guard", "~> 2.15"
+gem 'guard', '~> 2.15'

@@ -24,7 +24,7 @@
 
 FactoryBot.define do
   factory :home do
-    name { "MyString" }
+    name { 'MyString' }
     proprietor { nil }
   end
 end

@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 class UsersMailer < ApplicationMailer
   default from: 'notifications@example.com'
 
-
-  def welcome_email(user) #model
+  def welcome_email(user) # model
     @user = user
     @url  = 'http://example.com/login'
     mail(to: @user.email, subject: 'Welcome to My Awesome Site')
   end
 
   def contact
-    mail(to: 'contact@test.fr', subject:'sujet de test')
+    mail(to: 'contact@test.fr', subject: 'sujet de test')
   end
 
   ## def invitation_appointment_mail(appointment)
@@ -17,11 +18,11 @@ class UsersMailer < ApplicationMailer
   # @homes = @appointment.homes
   # @title = @appointment.homes.title
   # mail(to: @appointment.tenant.email, subject: "Invitation a rejoindre un rendez vous ")
-  #end
+  # end
 
-  def  invitation_home_mail(email, home) #controller
+  def invitation_home_mail(email, home) # controller
     @home = home
     @email = email
-    mail(to: @email, subject: "Invitation à devenir membre ")
+    mail(to: @email, subject: 'Invitation à devenir membre ')
   end
 end

@@ -5,7 +5,7 @@
 # Table name: proprietors
 #
 #  id         :bigint(8)        not null, primary key
-#  name       :string
+#  name       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint(8)        not null
@@ -22,5 +22,6 @@
 FactoryBot.define do
   factory :proprietor do
     name { Faker::Name.name }
+    user { create(:user) }
   end
 end

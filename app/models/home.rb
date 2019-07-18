@@ -26,10 +26,7 @@ class Home < ApplicationRecord
   belongs_to :proprietor
   belongs_to :appointment
 
-
-
-  #serialize :appointment
+  # serialize :appointment
 
   validates :name, presence: true
-
 end
