@@ -22,7 +22,7 @@
 
 FactoryBot.define do
   factory :appointment do
-    home { nil }
-    tenant { nil }
+    home { create(:home) }
+    tenant { belong_to(:tenant) }
   end
 end

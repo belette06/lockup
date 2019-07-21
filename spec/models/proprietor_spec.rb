@@ -28,25 +28,28 @@ RSpec.describe Proprietor, type: :model do
     it { should have_db_index(:user_id) }
   end
   describe 'associations' do
-    it { should belong_to(:user) }
+    it { should belong_to(:user).dependent(:destroy) }
+    it { should belong_to(:user).dependent(true) }
     it { should have_many(:homes) }
   end
-  describe 'Validation' do
-    it { should belong_to(:user) }
-    it { should belong_to(:user).dependent(:destroy) }
 
-  context 'validates testes' do
-    let! { FactoryBot.create(:proprietor) }
-    it { should validate_uniqueness_of(:name) }
-  end
-  end
+  describe "validations" do
+    let(:proprietor) { create(:proprietor) }
+
+    it 'ensures presence name value' do
+      should validate_presence_of(:name)
+    end
+
+end
 
   describe ' Factories' do
-    context ' with valid attributes' do
-      let(:proprietor) { build(:user) }
+    context 'with valid attributes' do
+      let!(:proprietor) { build(:proprietor) }
 
-      it 'is valid with attributes' do
-        expect(:proprietor).to be_valid
+      it { expect(proprietor.errors).to be_empty }
+
+      it 'is valid with valid attributes' do
+        expect(proprietor).to be_valid
       end
     end
   end

@@ -44,9 +44,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'Validation' do
-    it { is_expected.to validate_uniqueness_of(:email).ignoring_case_sensitivity }
-
-    context 'validation tests' do
+     context 'validation tests' do
       let(:user) { create(:user) }
 
       it 'ensures presence email value' do

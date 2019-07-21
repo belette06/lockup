@@ -22,6 +22,6 @@
 FactoryBot.define do
   factory :proprietor do
     name { Faker::Name.name }
-    user { create(:user) }
+    user { create(:user_id) }
   end
 end

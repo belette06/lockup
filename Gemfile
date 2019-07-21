@@ -10,6 +10,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'devise'
 gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
 gem 'jbuilder', '~> 2.5'
+gem 'lodash-rails'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'pry', '~> 0.12.2'
 gem 'puma', '~> 3.11'
@@ -20,7 +21,6 @@ gem 'sass-rails', '~> 5'
 gem 'simple_form'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
-gem 'lodash-rails'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
