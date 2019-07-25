@@ -7,21 +7,28 @@ module Proprietors
     before_action :set_appointment, only: %i[show edit update destroy]
     before_action :authenticate_user!
 
+    after_action :verify_authorized, except: :index
+   # after_action :verify_policy_scoped, only: :index
+
     def index
       @home = Home.find(params[:home_id])
       @appointments = Appointment.where(home_id: params[:home_id])
   end
 
-    def show; end
+    def show;
+      authorize @appointment
+    end
 
     def new
       @invite = Invite.new
       @appointment = Appointment.new
       @home = @proprietor.homes
+      authorize @appointment
     end
 
     def edit
       @home = Home.find(params[:home_id])
+      authorize @appointment
     end
 
     def create
@@ -36,20 +43,16 @@ module Proprietors
       @user = User.find_by(email: @email)
       @appointment.tenant = @user if @user == @email
       @appointment.home_id = params[:appointment][:home]
+
+      authorize @appointment
+
       if @appointment.save
         @invite.appointment_id = current_user.id
 
         if @invite.save
-
-          # if the user already exists
-          if !@invite.recipient.nil?
-
-            # send a notification email
-            InvitesMailer.existing_user_invite(@invite).deliver
-
-            # Add the user to the user group
-            @invite.recipient.user_groups.push(@invite.user_group)
-
+          if !@invite.recipient.nil?  # if the user already exists
+            InvitesMailer.existing_user_invite(@invite).deliver # send a notification email
+            @invite.recipient.appointments.push(@invite.appointment)  # Add the user to the appointment
           else
             InvitesMailer.new_user_invite(@invite, new_user_registration_path(invite_token: @invite.token)).deliver
           end
@@ -64,6 +67,7 @@ module Proprietors
 
     def update
       @home = Home.find(params[:home_id])
+      authorize @appointment
       if @appointment.update(appointment_params)
         redirect_to proprietors_home_appointments_path
       else
@@ -72,6 +76,7 @@ module Proprietors
     end
 
     def destroy
+      authorize @appointment
       @appointment.destroy
       redirect_to proprietors_home_appointments_path
     end
@@ -80,7 +85,7 @@ module Proprietors
 
     # #def params_appointment
     ##  params.require(:appointment).permit(:homes, :tenant, :kind, :weekly_recurring, :ends_at, :starts_at)
-    # #end
+    # end
 
     def set_appointment
       @appointment = Appointment.find(params[:id])

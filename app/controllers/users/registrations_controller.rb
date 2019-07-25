@@ -6,18 +6,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    @token = params[:invite_token] # <-- pulls the value from the url query string
-    super
+   @token = params[:invite_token] if @token.nil? # <-- pulls the value from the url query string
+   super
   end
 
   # POST /resource
   def create
-    @newUser = build_user(user_params)
-    @newUser.save
-    @token = params[:invite_token]
-    if !@token.nil?
-      org = Invite.find_by_token(@token).appointment # find the user group attached to the invite
-      @newUser.appointment.push(org) # add this user to the new user group as a member
+    if @token.nil?
+      @token = params[:user][:invite_token]
+      org = Invite.find_by_token(@token) # find the invite with params token
+    @newuser = build_resource
+    @newuser.email = org.email
+    @newuser.password = params[:user][:password]
+    @newuser.password_confirmation = params[:user][:password_confirmation]
+      if @newuser.save
+        Appointment.find(org.appointment_id).tenant_id = @newuser.id
+        @newuser.invitations_at.push(org) # add this user to the new appointment as a member
+        binding.pry
+      redirect_to invite_path(org)
+    end
+
     else
       super
     end
@@ -65,7 +73,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+   #def after_inactive_sign_up_path_for(resource)
+   #  super(resource)
+   # end
 end

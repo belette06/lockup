@@ -23,7 +23,7 @@ class Invite < ApplicationRecord
   belongs_to :recipient, class_name: 'User', optional: true
 
   def generate_token
-    self.token = Digest::SHA1.hexdigest([appointment_id, Time.now, rand].join)
+    self.token = Digest::SHA1.hexdigest([self.appointment_id, Time.now, rand].join)
   end
 
   def check_user_existence

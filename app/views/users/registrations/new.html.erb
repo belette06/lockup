@@ -4,6 +4,11 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <% if @token != nil %>
+    <%= f.input :invite_token,
+                as: :hidden,
+                input_html: {value: @token} %>
+<% end %>
     <%= f.input :email,
                 required: true,
                 autofocus: true,
@@ -16,14 +21,9 @@
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
   </div>
-  <% if @token != nil %>
-    <%= hidden_field_tag :invite_token, @token %>
-  <% end %>
+
   <div class="form-actions">
     <%= f.button :submit, "Sign up" %>
   </div>
-<% end %>
-<% if @token != nil %>
-  <%= hidden_field_tag :invite_token, @token %>
 <% end %>
 <%= render "users/shared/links" %>

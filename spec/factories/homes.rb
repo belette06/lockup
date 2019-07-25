@@ -9,7 +9,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  appointment_id :bigint(8)        not null
-#  proprietor_id  nil:bigint(8)        not null
+#  proprietor_id  :bigint(8)        not null
 #
 # Indexes
 #

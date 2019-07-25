@@ -1,23 +1,35 @@
 # frozen_string_literal: true
 
 class InvitesController < ApplicationController
-  before_action :set_invites, only: %i[show edit update destroy]
+  before_action :authenticate_user!
+  before_action :set_invites, only: %i[edit update destroy]
 
   def index
     @invites = Invite.all
   end
 
-  def show; end
+  def show
+
+    user.id == record.sender_id
+    params[]
+    authorize @invite
+    current_user.id = recipent_id
+  end
 
   def new
     @invite = Invite.new
   end
 
   def create
-    @invite = Invite.new(params_invite) # Make a new Invite
-    @invite.sender_id = current_user.id # set the sender to the current user
+    @invite = Invite.new(invite_params)
+    @invite.sender_id = current_user.id
     if @invite.save
-      InviteMailer.new_user_invite(@invite, new_user_registration_path(invite_token: @invite.token)).deliver # send the invite data to our invites_mailer to deliver the email
+      if @invite.recipient != nil  #if the user already exists
+        InviteMailer.existing_user_invite(@invite).deliver #send a notification email
+        @invite.recipient.appointments.push(@invite.appointment) #Add the user to the user group
+      else
+        InviteMailer.new_user_invite(@invite, new_user_registration_path(:invite_token => @invite.token)).deliver
+      end
     else
       # oh no, creating an new invitation failed
     end
