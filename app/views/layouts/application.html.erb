@@ -13,12 +13,14 @@
   <body>
       <%= render 'layouts/navbar' %>
       <%= render 'layouts/error' %>
-      <div class="container">
-        <%= yield %>
-      </div>
+
       <% if current_page?(root_url) %>
-          <%=  render 'layouts/footer' %>
+         <%= yield %>
+         <%=  render 'layouts/footer' %>
       <%else %>
+        <div class="container">
+          <%= yield %>
+        </div>
           <%=  render 'layouts/footer2' %>
        <% end %>
 

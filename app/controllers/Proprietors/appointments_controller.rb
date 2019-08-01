@@ -35,7 +35,6 @@ module Proprietors
       @invite = Invite.new
       @home = @proprietor.homes
       @appointment = Appointment.new(appointment_params)
-
       @invite.email = params[:appointment][:invite][:email]
       @invite.sender_id = current_user.id
 
@@ -43,6 +42,9 @@ module Proprietors
       @user = User.find_by(email: @email)
       @appointment.tenant = @user if @user == @email
       @appointment.home_id = params[:appointment][:home]
+
+      @reserve = Appointment.availabilities(@appointment.starts_at, @appointment.ends_at)
+      binding.pry
 
       authorize @appointment
 
