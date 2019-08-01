@@ -10,9 +10,11 @@
 #  confirmed_at           :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
+#  invitations_at         :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  sent_invites           :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -22,8 +24,11 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
-
+require 'faker'
 FactoryBot.define do
   factory :user do
+    email { Faker::Internet.unique.email }
+    password { 'password' }
+    password_confirmation { 'password' }
   end
 end

@@ -5,7 +5,7 @@
 # Table name: proprietors
 #
 #  id         :bigint(8)        not null, primary key
-#  name       :string
+#  name       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint(8)        not null
@@ -20,6 +20,8 @@
 #
 
 class Proprietor < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, dependent: :destroy
   has_many :homes
+
+  validates :name, presence: true, uniqueness: true
 end

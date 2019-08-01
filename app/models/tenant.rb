@@ -21,7 +21,7 @@
 
 class Tenant < ApplicationRecord
   #  attr_accessible :name
-  belongs_to :user, class_name: "User"
+  belongs_to :user, class_name: 'User'
 
   has_many :appointments, dependent: :destroy
   has_many :homes, through: :appointments

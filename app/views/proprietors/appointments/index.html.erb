@@ -15,7 +15,7 @@ Reservation <%= @home.name %>-ID:<%=@home.id  %>
   <%= appointment.tenant_id %>
       <%end %>
     <%= link_to'edit appointment', edit_proprietors_home_appointment_path(@home,appointment.id) %><br/>
-    <%= link_to'delete appointment', proprietors_home_appointment_path(@home, appointment.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to'delete appointment', proprietors_home_appointment_path(@home, appointment.id), method: :delete, data: { confirm: 'Are you sure?' } if appointment.kind != "opening"%>
 <hr/>
   <%end %>
 

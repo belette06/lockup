@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: appointments
@@ -18,29 +19,32 @@
 #  index_appointments_on_home_id    (home_id)
 #  index_appointments_on_tenant_id  (tenant_id)
 #
-
+require 'pry'
 class Appointment < ApplicationRecord
   ####### Relationship
   has_one :home, dependent: :destroy
   belongs_to :tenant, optional: true
 
+  has_many :invites
+
   ######### Validates
   validates :kind, :starts_at, :ends_at, presence: true
-  validates :kind, inclusion: %w(opening appointment)
+  validates :kind, inclusion: %w[opening appointment]
 
   ######## Scope
   scope :openings, -> { where(kind: :opening) }
   scope :appointments, -> { where(kind: :appointment) }
-  scope :filter_by_date, ->(beginning_date, end_date){ where(starts_at: beginning_date..end_date) }
+  scope :filter_by_date, ->(beginning_date, end_date) { where(starts_at: beginning_date..end_date) }
   scope :weekly_events, -> { where(weekly_recurring: true) }
 
   ######## Methodes
   TIME_STEP = 1.day
 
   class << self
-    def availabilities(date = Time.zone.today)
-      first_day = date.beginning_of_day
-      last_day = (date+ 6.days).end_of_day
+
+    def availabilities(start_date = Time.zone.today, end_date = Time.zone)
+      first_day = start_date.beginning_of_day
+      last_day = end_date.end_of_day
       bookable(first_day, last_day)
     end
 
@@ -59,10 +63,10 @@ class Appointment < ApplicationRecord
 
     def stay_bookable(first_day, last_day)
       booking_open = openings.filter_by_date(first_day, last_day).to_a
-      Event.openings.weekly_events.where("starts_at < ?", first_day).find_each do |event|
+      Appointment.openings.weekly_events.where('starts_at < ?', first_day).find_each do |event|
         number_of = ((first_day.to_f - event.starts_at.to_f) / 1.week).ceil
         weeks = number_of.weeks
-        booking_open << Event.new(starts_at: event.starts_at + weeks, ends_at: event.ends_at + weeks, kind: :opening) if number_of >= 1
+        booking_open << Appointment.new(starts_at: event.starts_at + weeks, ends_at: event.ends_at + weeks, kind: :opening) if number_of >= 1
       end
       reservations(booking_open)
     end

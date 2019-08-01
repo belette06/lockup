@@ -1,16 +1,33 @@
+<% if !user_signed_in? %>
 
-<header>
   <!-- HEADER CONTENT STARTS HERE -->
-  <div class="header-content" id="start-navbar-dark">
+  <header>
+    <div class="header-content" id="start-navbar-dark">
+      <font color="#663399", size="7" >HomeLockUp</font>
+    </div>
+      <button class="animated swing about-nav">About Me</button>
+  </header>
 
+  <section class="about">
+    <div class="about-section">
+      <h4> HomeLockUp est une conciairgerie de gestion d'appartement . </h4>
+        <p>
+          Nous sommes une conciergerie qui gère intégralement vos locations courte durée.
+          Annonce, tarifs, réservations, accueil, accompagnement des voyageurs, ménage, linge hôtelier, photos professionnelles,
+          notre service complet de conciergerie s'occupe de tout.
+        </p>
+    </div>
+  </section>
+
+<% else %>
+
+  <section class="proprietor">
     <div class="container-fluid">
-      <div class="row  about-section">
-        <!-- BEGIN SECTIONS -->
+      <div class="proprietor-section">
         <div class="col-md-12 col-lg-6">
           <% if user_signed_in? %>
             <%if user_session %>
               <div  class="profilepic">
-
                 <% if @proprietor.present?%>
                   <%= link_to 'Espace le proprietaire', proprietor_path(@proprietor.id) %><br>
                   <%= link_to 'ajouter une Maison', new_proprietors_home_path %><br>
@@ -23,29 +40,7 @@
         </div>
       </div>
     </div>
-    <button class="animated swing about-nav">About Me</button>
-  </div>
-</header>
+  </section>
+<% end %>
 
-
-<section class="row contact">
-  <div class="col-sm-12 col-md-6">
-    <div class="contact-content">
-      <h3>Let's Get In Touch!</h3>
-      <p><a href="https://www.github.com/Wheatability"><i class="fa fa-github"></i>GitHub</a></p>
-      <p><a href="https://www.linkedin.com/in/tpurvines"><i class="fa fa-linkedin"></i>Linked In</a></p>
-      <p><a href="https://codepen.io/Wheatability/"><i class="fa fa-codepen"></i>Codepen</a></p>
-      <p><a href="mailto:tylerpurvines@gmail.com"><i class="fa fa-envelope"></i>Email</a></p>
-    </div>
-  </div>
-  <div class="col-md-6">
-  </div>
-</section>
-
-<section class="row creator">
-  <div class="col-sm-12">
-    <p>Page <i class="fa fa-code"></i> with <i class="fa fa-heart"></i> by belette06</p>
-  </div>
-</section>
 <!-- END SECTIONS -->
-</div>

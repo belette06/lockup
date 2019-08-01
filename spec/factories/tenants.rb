@@ -21,6 +21,6 @@
 
 FactoryBot.define do
   factory :tenant do
-    name { "MyString" }
+    name { 'MyString' }
   end
 end

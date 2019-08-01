@@ -10,9 +10,11 @@
 #  confirmed_at           :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
+#  invitations_at         :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  sent_invites           :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -26,27 +28,26 @@
 class User < ApplicationRecord
   after_create :welcome_send
 
-   has_one :proprietor
-   accepts_nested_attributes_for :proprietor
+  has_one :proprietor, dependent: :destroy
+  accepts_nested_attributes_for :proprietor
 
-  has_one :tenant
+  has_one :tenant, dependent: :destroy
   accepts_nested_attributes_for :tenant
 
+  has_many :invitations_at, class_name: 'Invite', foreign_key: 'recipient_id'
+  has_many :sent_invites, class_name: 'Invite', foreign_key: 'sender_id'
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
 
-  validates :password, length: { in: 6..20, on: :create }
-
+  validates :password, length: { in: 6..20, presence: true, on: :create }
 
   def welcome_send
-    UserMailer.welcome_email(self).deliver_now
+    UsersMailer.welcome_email(self).deliver_now
   end
-
 end

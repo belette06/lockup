@@ -1,15 +1,15 @@
-    # frozen_string_literal: true
+# frozen_string_literal: true
+
 require 'pry'
 class ProprietorsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_proprietor, only: %i[show edit update destroy]
 
-def show
-  @homes = @proprietor.homes
-  @openning = Appointment.openings
-  @appointement = Appointment.appointments
-
-end
+  def show
+    @homes = @proprietor.homes
+    @openning = Appointment.openings
+    @appointement = Appointment.appointments
+      end
 
   def new
     @proprietor = Proprietor.new
@@ -25,7 +25,7 @@ end
     end
   end
 
-  def edit;  end
+  def edit; end
 
   def update
     if @proprietor.update(params_proprietor)

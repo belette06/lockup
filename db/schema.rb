@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_22_073434) do
+ActiveRecord::Schema.define(version: 2019_07_21_012344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,21 +38,22 @@ ActiveRecord::Schema.define(version: 2019_06_22_073434) do
     t.index ["proprietor_id"], name: "index_homes_on_proprietor_id"
   end
 
+  create_table "invites", force: :cascade do |t|
+    t.string "email"
+    t.integer "appointment_id"
+    t.integer "sender_id"
+    t.integer "recipient_id"
+    t.string "token"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "proprietors", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_proprietors_on_user_id"
-  end
-
-  create_table "relations", force: :cascade do |t|
-    t.bigint "tenant_id", null: false
-    t.bigint "homes_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["homes_id"], name: "index_relations_on_homes_id"
-    t.index ["tenant_id"], name: "index_relations_on_tenant_id"
   end
 
   create_table "tenants", force: :cascade do |t|
@@ -74,6 +75,8 @@ ActiveRecord::Schema.define(version: 2019_06_22_073434) do
     t.datetime "confirmation_sent_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "invitations_at"
+    t.string "sent_invites"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -82,7 +85,5 @@ ActiveRecord::Schema.define(version: 2019_06_22_073434) do
   add_foreign_key "homes", "appointments"
   add_foreign_key "homes", "proprietors"
   add_foreign_key "proprietors", "users"
-  add_foreign_key "relations", "homes", column: "homes_id"
-  add_foreign_key "relations", "tenants"
   add_foreign_key "tenants", "users"
 end

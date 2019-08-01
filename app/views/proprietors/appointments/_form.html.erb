@@ -1,7 +1,10 @@
 
 
 <%= simple_form_for @appointment, :url => proprietors_home_appointments_path(@proprietor), authenticity_token: true, multipart: true,  html: {class: 'horizontal_form container'} do |f| %>
-    <%= f.input :email, as: :string,  :input_html => { :value => "" } %>
+<%= f.simple_fields_for :invite do |form| %>
+    <%= form.input :user_appointment_id, :as => :hidden, :input_html => { :value => @invite.appointment }  %>
+  <%= form.input :email, as: :string,  :input_html => { :value => "" } %>
+    <%end %>
     <%= f.input :kind, :as => :hidden, :input_html => { :value => "appointment" }%>
     <%= f.input :starts_at,as: :string, input_html: {id: "start_date"} %>
     <%= f.input :ends_at,as: :string, input_html: {id: "end_date"}%>
@@ -9,5 +12,6 @@
     <%= f.input :home, :collection => @home, :value_method => :id, :label => "Home" , :include_blank => false %>
 
     <%= f.button :submit, class: "btn-primary" %>
+
 <%end %>
 

@@ -1,0 +1,41 @@
+Invitation#index
+
+
+
+<h2> Invitation recu</h2>
+
+<% if @invitables.empty? %>
+  <h5> Vous n'avez pas recu d'invitations</h5>
+<% else %>
+  <% @invitables.each do |invitable| %>
+    <%= invitable.email.to_s %>
+    <%= Appointment.find(invitable.appointment_id) %>
+    <%= invitable.recipient_id %>
+  <%end %>
+<%end %>
+
+<hr>
+
+<h2> Invitation Envoyer</h2>
+
+  <% if @invitations.empty? %>
+  <h5> Vous n'avez pas envoye d'invitations</h5>
+  <% else %>
+    <% @invitations.each do |invitation| %>
+          <%= invitation.email.to_s %> <br>
+
+      <% @appointment = Appointment.find(invitation.appointment_id) %>
+        <% @home = Home.find(@appointment.home_id) %>
+          Reservation dans la home: <%= @home.name %> <br>
+          Du <%= @appointment.starts_at.to_s[0..9] %> au <%= @appointment.ends_at.to_s[0..9] %>
+
+        <% if invitation.recipient.nil? %>
+          <p style="color: #8a1f11">  En cour d'acceptation </p>
+        <% else %>
+          <p style=" color: #006600 ">innvitation accepter</p>
+        <% end %>
+          <br>
+    <%end %>
+  <% end %>
+
+

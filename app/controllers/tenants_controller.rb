@@ -25,7 +25,6 @@ class TenantsController < ApplicationController
     @appointment = @home.appointment.build(params[:appointment])
     @tenant = Tenant.new(params[:tenant])
 
-
     if @tenant.valid?
       @tenant = @appointments.tenant
       if @tenant.name.any?
@@ -55,7 +54,7 @@ class TenantsController < ApplicationController
   def set_tenant
     @tenant = Tenants.find_by(id: params[:id])
     if @tenants.nil?
-      flash[:error] = "Client not found."
+      flash[:error] = 'Client not found.'
       redirect_to tenants_path
     end
   end

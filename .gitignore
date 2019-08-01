@@ -41,5 +41,10 @@ echo "coverage" >> .gitignore
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
 .idea
 yarn.lock
+
+
+coverage
+pundit

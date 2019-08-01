@@ -14,7 +14,7 @@ Home.destroy_all
 (1..10).to_a.each do |i|
   puts "Creating User #{i}"
   email = Faker::Internet.email
-  password = "password"
+  password = 'password'
   User.create!(email: email, password: password)
 
   puts "Creating Proprietor #{i}"
