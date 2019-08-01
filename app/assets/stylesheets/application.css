@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap/scss/bootstrap
  *= require bootstrap-datepicker
  */
 
@@ -25,49 +26,23 @@ button {
     outline: 0 !important;
 }
 
-h1 {
-    margin: 0;
-    padding: 0;
-    font-size: 70px;
-
-}
 
 header {
-    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/791586/header.jpg');
+    background-image: url(./concierge2.jpg);
     background-size: cover;
     background-position: center;
     height: 100vh;
 }
 
-h2 {
+footer {
+    width: 100%;
+    bottom: 0;
 
-    display: inline-block;
-    font-size: 40px;
-    border-bottom: 2px solid white;
-    margin: 0;
-    padding-bottom: 5px;
-}
-
-h3 {
-
-    font-weight: 900;
-    font-size: 40px;
-    margin: 20px auto;
-}
-
-h4 {
-
-    font-weight: 700;
-    font-size: 28px;
-    color: white;
 }
 
 section {
-    padding: 10vh 0;
-}
-
-h3 i {
-    margin-right: 20px;
+    padding: 40vh 0;
+    box-shadow: inset 0 -15px 30px -15px #000;
 }
 
 .about {
@@ -75,28 +50,23 @@ h3 i {
     font-weight: 400;
 }
 
-.about p {
-    margin: 20px auto;
-    font-weight: 300;
-    text-align: justify;
-    width: 580px;
+.about-nav {
+    border-radius: 10px;
+    margin-top: 5%;
+    margin-left: 45%;
+    padding: 10px;
+    color: white;
+    font-size: 1.1em;
+    background-color: rgba(255, 251, 251, 0);
+    border-color:#663399;
 }
 
 .about-section {
-    background: #495ba7;
     text-align: center;
-    box-shadow: inset 0 -15px 30px -15px #000;
 }
 
 .about-section button {
-    background: none;
-    border: 2px solid rgba(0, 0, 0, 0.14);
-    border-radius: 4px;
-    color: rgb(0, 0, 0);
-    font-weight: 700;
-    height: 35px;
-    margin-top: 60px;
-    outline: none;
+
 }
 
 .about-section button i {
@@ -127,7 +97,7 @@ h3 i {
 .contact {
     background: #252525;
 
-    padding: 100px;
+    padding: 10px;
     text-align: center;
 }
 
@@ -146,11 +116,12 @@ h3 i {
     font-size: 2em;
     font-weight: 400;
     width: 250px;
+    color: white;
 }
 
 .contact i {
     color: #FFF;
-    font-size: 1.6em;
+    font-size: 1.2em;
     margin-right: 10px;
 }
 
@@ -182,72 +153,15 @@ h3 i {
     margin: 20px 0;
 }
 
+
+
+
 .header-content {
-    color: #FFF;
-    padding-top: 10px;
+    padding-top: 25%;
     text-align: center;
 }
 
-.header-content a,
-.navbar-brand::first-letter {
-    color: #FFF;
-}
 
-.header-content button {
-    -moz-animation-delay: 1.75s;
-    -webkit-animation-delay: 1.75s;
-    animation-delay: 1.75s;
-    background: none;
-    border: 2px solid #FFF;
-    border-radius: 4px;
-    color: #FFF;
-    font-weight: 400;
-    height: 35px;
-    margin-top: 55px;
-    outline: none;
-    padding: 0 25px;
-}
-
-.navbar {
-    background-color: black;
-    border: none;
-    transition: background 0.8s;
-}
-
-.navbar-brand {
-    color: rgba(255, 255, 255, 0.8)!important;
-
-    font-size: 36px;
-    font-weight: 900;
-}
-
-.navbar-default .navbar-nav li a {
-    color: rgba(255, 255, 255, 0.8);
-
-    font-size: 16px;
-    font-weight: 700;
-    padding-bottom: 10px;
-}
-.footer {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
-.navbar-default .navbar-nav li a:hover {
-    color: #FFF;
-    transition: color .3s;
-}
-
-.navbar-default .navbar-nav li a:focus {
-    color: #FFF;
-    transition: color .3s;
-}
-
-.navbar-toggle {
-    background: none!important;
-    color: #FFF;
-}
 
 .profilepic {
     border: 20px solid rgba(255, 255, 255, 0.8);
@@ -278,7 +192,7 @@ h3 i {
 }
 
 .projects {
-    box-shadow: inset 0 15px 30px -15px #000;
+    box-shadow: inset 0 15px 30px 15px #000;
     background: #a7495b;
     text-align: center;
 }
@@ -314,6 +228,11 @@ h3 i {
     width: 100%;
 }
 
+.session-nav {
+    text-align: right;
+}
+
+
 .f3 {
     -webkit-animation-duration: 0.9s;
     animation-duration: 0.9s;
@@ -331,26 +250,22 @@ h3 i {
     .profilepic {
         margin: auto;
     }
+
 }
 
 @media (max-width: 767px) {
-    h1 {
-        font-size: 36px;
-        font-weight: 900;
 
-    }
-    h2 {
-        font-size: 18px;
-        font-weight: 300;
-
-    }
     .about-section div img {
         width: 50%;
     }
     .social-icons i {
         margin: 0;
     }
+    .fix-footer{
+        position: initial;
+    }
 }
+
 
 @media(max-width: 605px) {
     .about p {
@@ -362,6 +277,7 @@ h3 i {
     section p {
         font-size: 16px;
     }
+
 }
 
 @media(max-width: 525px) {
@@ -377,6 +293,7 @@ h3 i {
     .contact {
         padding: 50px 0;
     }
+
 }
 
 @media (max-width: 320px) {
@@ -384,6 +301,7 @@ h3 i {
         width: 280px;
     }
 }
+
 
 
 /* Fix Landscape on Mobile */
@@ -397,3 +315,32 @@ h3 i {
         margin: 0 auto;
     }
 }
+
+
+/* User sign in and sign forms. */
+.border-form-div {
+    max-width: 450px;
+    padding: 19px 29px 29px;
+    margin: 5% auto 20%;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.border-form-div .form-signin-heading,
+.border-form-div .checkbox {
+    margin-bottom: 10px;
+}
+.border-form-div input[type="text"],
+.border-form-div input[type="email"],
+.border-form-div input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+}
+

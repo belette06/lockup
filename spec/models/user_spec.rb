@@ -46,7 +46,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'Validation' do
-     context 'validation tests' do
+    context 'validation tests' do
       let(:user) { create(:user) }
 
       it 'ensures presence email value' do

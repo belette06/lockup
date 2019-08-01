@@ -6,35 +6,42 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-   @token = params[:invite_token] if @token.nil? # <-- pulls the value from the url query string
-   super
+    @token = params[:invite_token] if @token.nil? # <-- pulls the value from the url query string
+    super
   end
 
   # POST /resource
   def create
-    if @token.nil?
-      @token = params[:user][:invite_token]
+    @token = params[:user][:invite_token]
+    if !@token.nil?
+
       org = Invite.find_by_token(@token) # find the invite with params token
-    @newuser = build_resource
-    @newuser.email = org.email
-    @newuser.password = params[:user][:password]
-    @newuser.password_confirmation = params[:user][:password_confirmation]
-      if @newuser.save
+      puts 'ok org'
+      @newuser = User.new
+      @newuser.email = params[:user][:email]
+      @newuser.password = params[:user][:password]
+      @newuser.password_confirmation = params[:user][:password_confirmation]
+      puts 'ok user build'
+      if @newuser.email == org.email
+        puts 'oui identiqueeeeeeeeeeeeeeeeeeee'
+        @newuser.save
         Appointment.find(org.appointment_id).tenant_id = @newuser.id
         @newuser.invitations_at.push(org) # add this user to the new appointment as a member
-        binding.pry
-      redirect_to invite_path(org)
-    end
-
+        redirect_to invite_url(org)
+      else
+        flash[:alert] = 'Your email is not identical to invite'
+        redirect_to request.referrer
+        end
     else
       super
     end
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    @proprietor = current_user.proprietor
+    super
+  end
 
   # PUT /resource
   # def update
@@ -73,7 +80,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up for inactive accounts.
-   #def after_inactive_sign_up_path_for(resource)
-   #  super(resource)
-   # end
+  # def after_inactive_sign_up_path_for(resource)
+  #  super(resource)
+  # end
 end

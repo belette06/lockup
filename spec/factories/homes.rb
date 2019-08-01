@@ -26,6 +26,6 @@ FactoryBot.define do
   factory :home do
     name { 'MyString' }
     proprietor { create(:proprietor) }
-    appointment{create(:proprietor)}
+    appointment { create(:proprietor) }
   end
 end

@@ -1,33 +1,53 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <%= link_to'HomeLockup', root_path, class:"navbar-brand"%>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<nav class="navbar navbar-default navbar-fixed-top animated fadeInDown" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span>Show Menu</span>
-      </button>
-      <%= link_to'HomeLockup', root_path, class:"navbar-brand"%>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
       <% if user_signed_in? %>
-        Logged in as <strong><%= current_user.email %></strong>
 
-        </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse navbar-ex1-collapse" id="CollapseMenu">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="about-nav"><a href="#"><i class="fa fa-fw fa-user-o" aria-hidden="true"></i> About</a></li>
-        <li><i class="fa fa-fw fa-code" aria-hidden="true"></i>
+        <!-- DROP DOWN USER  -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= current_user.email %>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to 'Edit profile', edit_user_registration_path, :class => 'dropdown-item' %>
+            <div class="dropdown-divider"></div>
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'dropdown-item'  %>
+          </div>
+         </li>
+        <!-- END DROP DOWN USER END -->
 
-            <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-          <% else %>
-            <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-            <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-          <%end %>
-        </li>
-        <li class="contact-nav"><a href="#"><i class="fa fa-fw fa-envelope-o" aria-hidden="true"></i> Contact</a></li>
-      </ul>
-    </div>
-    <!-- /.navbar-collapse -->
+        <% if !current_user.proprietor.nil? %>
+          <!-- DROP DOWN PROPRIETOR  -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Escpace Proprietaire
+            </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to 'Espace le proprietaire', proprietor_path(@proprietor.id), class:"dropdown-item" %>
+          <div class="dropdown-divider"></div>
+            <%= link_to 'ajouter une Maison', new_proprietors_home_path, class:"dropdown-item" %>
+          </div>
+        <%else %>
+          <li class="nav-item"> <%= link_to 'Cree le proprietaire', new_proprietor_path, class:"nav-link"%> </li>
+        <%end %>
+        <!-- END DROP DOWN PROPRIETOR END -->
+
+        <!-- USER  -->
+        <li class="nav-item"> <%= link_to 'Invitation', invites_path, class:"nav-link"%>  </li>
+
+
+        <!-- NOT LOGIN   -->
+    <% else %>
+        <li class="nav-item"> <%= link_to "Sign up", new_user_registration_path, :class => 'nav-link'  %></li>
+        <li class="nav-item"> <%= link_to "Login", new_user_session_path, :class => 'nav-link'  %></li>
+      <% end %>
+
+    </ul>
   </div>
 </nav>

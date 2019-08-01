@@ -33,14 +33,13 @@ RSpec.describe Proprietor, type: :model do
     it { should have_many(:homes) }
   end
 
-  describe "validations" do
+  describe 'validations' do
     let(:proprietor) { create(:proprietor) }
 
     it 'ensures presence name value' do
       should validate_presence_of(:name)
     end
-
-end
+  end
 
   describe ' Factories' do
     context 'with valid attributes' do

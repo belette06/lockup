@@ -8,14 +8,14 @@ module Proprietors
     before_action :authenticate_user!
 
     after_action :verify_authorized, except: :index
-   # after_action :verify_policy_scoped, only: :index
+    # after_action :verify_policy_scoped, only: :index
 
     def index
       @home = Home.find(params[:home_id])
       @appointments = Appointment.where(home_id: params[:home_id])
   end
 
-    def show;
+    def show
       authorize @appointment
     end
 
@@ -50,9 +50,9 @@ module Proprietors
         @invite.appointment_id = current_user.id
 
         if @invite.save
-          if !@invite.recipient.nil?  # if the user already exists
+          if !@invite.recipient.nil? # if the user already exists
             InvitesMailer.existing_user_invite(@invite).deliver # send a notification email
-            @invite.recipient.appointments.push(@invite.appointment)  # Add the user to the appointment
+            @invite.recipient.appointments.push(@invite.appointment) # Add the user to the appointment
           else
             InvitesMailer.new_user_invite(@invite, new_user_registration_path(invite_token: @invite.token)).deliver
           end

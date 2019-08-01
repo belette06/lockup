@@ -50,6 +50,4 @@ class User < ApplicationRecord
   def welcome_send
     UsersMailer.welcome_email(self).deliver_now
   end
-
-
 end

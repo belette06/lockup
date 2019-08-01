@@ -2,18 +2,22 @@
 
 class InvitesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_invites, only: %i[edit update destroy]
+  before_action :set_invites, only: %i[show edit update destroy]
+  before_action :find_proprietor, only: %i[show index]
 
   def index
-    @invites = Invite.all
+    # @invites = Invite.all if current_user.admin
+    # @invitations = Invite.where(sender_id: current_user.id)
+    # @invitables = Invite.where(recipient_id: current_user.id)
+    @invitations = current_user.sent_invites
+    @invitables = current_user.invitations_at
+
+    authorize @invitations
+    authorize @invitables
   end
 
   def show
-
-    user.id == record.sender_id
-    params[]
     authorize @invite
-    current_user.id = recipent_id
   end
 
   def new
@@ -24,11 +28,11 @@ class InvitesController < ApplicationController
     @invite = Invite.new(invite_params)
     @invite.sender_id = current_user.id
     if @invite.save
-      if @invite.recipient != nil  #if the user already exists
-        InviteMailer.existing_user_invite(@invite).deliver #send a notification email
-        @invite.recipient.appointments.push(@invite.appointment) #Add the user to the user group
+      if !@invite.recipient.nil? # if the user already exists
+        InviteMailer.existing_user_invite(@invite).deliver # send a notification email
+        @invite.recipient.appointments.push(@invite.appointment) # Add the user to the user group
       else
-        InviteMailer.new_user_invite(@invite, new_user_registration_path(:invite_token => @invite.token)).deliver
+        InviteMailer.new_user_invite(@invite, new_user_registration_path(invite_token: @invite.token)).deliver
       end
     else
       # oh no, creating an new invitation failed
@@ -48,7 +52,11 @@ class InvitesController < ApplicationController
   private
 
   def set_invites
-    @invite = @invite = Invite.find(params[:id])
+    @invite = Invite.find(params[:id])
+  end
+
+  def find_proprietor
+    @proprietor = current_user.proprietor
   end
 
   def params_invite
