@@ -15,18 +15,20 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'pry', '~> 0.12.2'
 gem 'puma', '~> 3.11'
 gem 'pundit'
-gem 'rails', '~> 6.0.0.rc1'
+gem 'rails', '~> 6.0.0.rc2'
 gem 'redis-rails'
 gem 'sass-rails', '~> 5'
 gem 'simple_form'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
 
+
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.8'
+  gem 'guard', '~> 2.15'
 end
 
 group :development do
@@ -55,4 +57,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem 'guard', '~> 2.15'
+

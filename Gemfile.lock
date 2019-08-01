@@ -357,7 +357,7 @@ DEPENDENCIES
   pry (~> 0.12.2)
   puma (~> 3.11)
   pundit
-  rails (~> 6.0.0.rc1)
+  rails (~> 6.0.0.rc2)
   rails-controller-testing
   redis-rails
   relaxed-rubocop
